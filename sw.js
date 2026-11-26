@@ -1,5 +1,5 @@
 /* 讀日文小工程 service worker：重複造訪秒開、離線也能讀 */
-var CACHE = "drw-v1";
+var CACHE = "drw-v2";
 var CORE = [
   "./",
   "assets/fonts/mplus-400.woff2",

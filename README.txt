@@ -8,5 +8,5 @@
 ・字型是「裁切版」，只含 index.html 裡用到的字。新增文章或改文字後，請跑一次：
     pip install fonttools brotli
     python3 tools/build-fonts.py
-  然後把 sw.js 第一行附近的 CACHE 版本號（drw-v1）加一，讓舊訪客拿到新字型。
+  然後把 sw.js 第一行附近的 CACHE 版本號（drw-v2）加一，讓舊訪客拿到新字型。
 ・文章插圖另有 -600.webp 小圖給清單卡片用；換插圖時兩種尺寸都要更新。
