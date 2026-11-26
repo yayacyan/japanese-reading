@@ -19,10 +19,15 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://yayacyan.github.io/japanese-reading/assets/og-image.png" />
     <title>讀日文小工程</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800;900&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="preload" href="assets/fonts/mplus-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/mplus-800.woff2" as="font" type="font/woff2" crossorigin />
     <style>
+      /* 自架字型：只含本站用到的字，改文字後請跑 tools/build-fonts.py 重新產生 */
+      @font-face{font-family:"M PLUS Rounded 1c";font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/mplus-400.woff2) format("woff2")}
+      @font-face{font-family:"M PLUS Rounded 1c";font-style:normal;font-weight:700;font-display:swap;src:url(assets/fonts/mplus-700.woff2) format("woff2")}
+      @font-face{font-family:"M PLUS Rounded 1c";font-style:normal;font-weight:800;font-display:swap;src:url(assets/fonts/mplus-800.woff2) format("woff2")}
+      @font-face{font-family:"M PLUS Rounded 1c";font-style:normal;font-weight:900;font-display:swap;src:url(assets/fonts/mplus-900.woff2) format("woff2")}
+      @font-face{font-family:"Noto Sans TC";font-style:normal;font-weight:100 900;font-display:swap;src:url(assets/fonts/notosanstc.woff2) format("woff2")}
       :root{
         --bg:#FFFAFC; --surface:#FFFFFF; --surface2:#F6F2FF; --ink:#3B3A4A; --ink2:#77738A; --line:#EFE6F2;
         --coral:#EE6A86; --blue:#4F8FE3; --orange:#EF8F3C; --plum:#9070DA; --teal:#2FA78C;
@@ -643,14 +648,14 @@
       document.getElementById("tab-book").innerHTML = esc(s.tabBook) + (wordbook.length ? ' <span class="badge">' + wordbook.length + "</span>" : "");
       document.getElementById("lang-zh").setAttribute("aria-pressed", lang==="zh" ? "true" : "false");
       document.getElementById("lang-en").setAttribute("aria-pressed", lang==="en" ? "true" : "false");
-      document.getElementById("foot").innerHTML = '<img src="assets/mascot-128.webp" alt="">' + '<a class="kofi-foot" href="https://ko-fi.com/kanjicoffee" target="_blank" rel="noopener">喜歡的話，請我喝杯咖啡 <span aria-hidden="true">☕</span></a>' + '<span>' + esc(s.foot) + '</span>';
+      document.getElementById("foot").innerHTML = '<img src="assets/mascot-128.webp" alt="" width="48" height="40" loading="lazy">' + '<a class="kofi-foot" href="https://ko-fi.com/kanjicoffee" target="_blank" rel="noopener">喜歡的話，請我喝杯咖啡 <span aria-hidden="true">☕</span></a>' + '<span>' + esc(s.foot) + '</span>';
       document.documentElement.lang = lang === "zh" ? "zh-Hant" : "en";
     }
 
     /* ---------- Home ---------- */
     function renderHome(){
       var s = S(), done = ARTICLES.filter(function(a){ return isDone(a.id); }).length;
-      var h = '<section class="hero"><div class="hero-grid"><div><h1 class="maru">' + s.heroTitle + '</h1><p>' + esc(s.heroSub) + '</p></div><img class="mascot" src="assets/mascot.webp" alt="" width="170" height="134"></div>';
+      var h = '<section class="hero"><div class="hero-grid"><div><h1 class="maru">' + s.heroTitle + '</h1><p>' + esc(s.heroSub) + '</p></div><img class="mascot" src="assets/mascot.webp" alt="" width="170" height="134" fetchpriority="high"></div>';
       h += '<div class="stats"><div class="stat"><b>' + done + " / " + ARTICLES.length + '</b><span>' + esc(s.statDone) + '</span></div>';
       h += '<div class="stat"><b>' + wordbook.length + '</b><span>' + esc(s.statWords) + "</span></div></div></section>";
 
@@ -669,7 +674,7 @@
       if(selLevel === "n5"){
         h += '<div class="cards">';
         ARTICLES.forEach(function(a, idx){
-          h += '<article class="card"><div class="imgbox"><img src="' + a.img + '" alt="' + esc(pick(a,"t")) + '" width="1077" height="758" loading="lazy"></div><div class="card-body">';
+          h += '<article class="card"><div class="imgbox"><img src="' + a.img.replace(".webp","-600.webp") + '" srcset="' + a.img.replace(".webp","-600.webp") + ' 600w, ' + a.img + ' 1077w" sizes="(max-width:600px) calc(100vw - 56px), 300px" alt="' + esc(pick(a,"t")) + '" width="1077" height="758" loading="lazy" decoding="async"></div><div class="card-body">';
           h += '<div class="kicker"><span class="chip" style="background:' + a.accentT + ';color:' + a.accent + '">N5 · ' + (idx+1) + '</span><span class="chip" style="background:var(--surface2);color:var(--ink2)">' + esc(pick(a,"theme")) + "</span>" + (isDone(a.id) ? '<span class="chip done">✓ ' + esc(s.doneBadge) + "</span>" : "") + "</div>";
           h += '<h3 class="jp">' + esc(a.titleJp) + '</h3><div class="zh">' + esc(pick(a,"t")) + '</div><p>' + esc(pick(a,"intro")) + "</p>";
           h += '<div class="meta"><span>約 ' + a.chars + " " + esc(s.metaChars) + "</span><span>" + a.grammarIds.length + " " + esc(s.metaGrammar) + "</span><span>" + a.quiz.length + " " + esc(s.metaQuiz) + "</span><span>" + a.minutes + " " + esc(s.metaMin) + "</span></div>";
@@ -719,7 +724,7 @@
       var h = '<button class="backbtn" id="rd-back">' + esc(s.back) + "</button>";
       h += '<div class="reader-head"><div class="kicker" style="display:flex;gap:8px;flex-wrap:wrap"><span class="chip" style="background:' + a.accentT + ';color:' + a.accent + '">N5</span><span class="chip" style="background:var(--surface2);color:var(--ink2)">' + esc(pick(a,"theme")) + '</span></div>';
       h += '<h2 class="jp">' + esc(a.titleJp) + '</h2><div class="zh">' + esc(pick(a,"t")) + '</div><p>' + esc(pick(a,"intro")) + "</p></div>";
-      h += '<img class="reader-img" src="' + a.img + '" alt="' + esc(pick(a,"t")) + '">';
+      h += '<img class="reader-img" src="' + a.img + '" width="1077" height="758" decoding="async" alt="' + esc(pick(a,"t")) + '">';
       h += '<div class="toolbar"><div class="furi"><span>ふりがな</span><button type="button" class="switch" id="furi-sw" role="switch" aria-checked="' + furiOn + '" aria-label="Furigana"><span class="track"></span></button><span class="furi-state">' + esc(furiOn ? s.furiOn : s.furiOff) + '</span></div>';
       h += '<div class="legend"><span><span class="sw-v">' + esc(s.legendV) + '</span></span><span><span class="sw-g">' + esc(s.legendG) + "</span></span></div></div>";
       h += '<div class="progress-strip" id="pstrip"></div>';
@@ -934,6 +939,7 @@
     function syncTopH(){ var tb = document.querySelector(".topbar"); if(tb) document.documentElement.style.setProperty("--top-h", tb.offsetHeight + "px"); }
     window.addEventListener("resize", syncTopH);
     renderTabs(); renderHome(); showView("home"); syncTopH();
+    if("serviceWorker" in navigator && location.protocol !== "file:") window.addEventListener("load", function(){ navigator.serviceWorker.register("sw.js").catch(function(){}); });
     </script>
     <script>
     /* ============ Gojuon data ============ */
