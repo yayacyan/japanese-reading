@@ -291,6 +291,21 @@
       footer{margin-top:48px;color:var(--ink2);font-size:.86rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
       footer img{width:48px;height:40px;object-fit:contain}
       @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+      /* Ko-fi sponsor */
+      .kofi{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:6px 14px 6px 11px;border-radius:999px;background:#FFF0E8;border:2px solid #FFD2C2;color:#C9573F;font-weight:800;font-size:.88rem;text-decoration:none;white-space:nowrap;transition:transform .15s,background .2s,box-shadow .2s}
+      .kofi .cup{font-size:1.05rem;line-height:1;display:inline-block}
+      .kofi:hover{background:#FFE3D6;transform:translateY(-1px);box-shadow:0 6px 14px rgba(238,120,90,.18)}
+      .kofi:hover .cup{animation:wiggle .5s ease}
+      .kofi:active{transform:scale(.95)}
+      .kofi:focus-visible,.kofi-foot:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+      @media (prefers-color-scheme: dark){.kofi{background:#4A3229;border-color:#6B4536;color:#FFC2AE}.kofi:hover{background:#5A3B30}}
+      @media (max-width:640px){ .kofi{padding:0;width:40px;height:40px;justify-content:center} .kofi .lbl{display:none} }
+      @media (max-width:430px){ .kofi{width:36px;height:36px;min-height:36px} .kofi .cup{font-size:.98rem} .topbar .brand{display:none} .tabs .tab{padding:7px 10px;font-size:.82rem} .langseg button{padding:6px 7px} }
+      .tabs .tab{flex:none}
+      @media (max-width:340px){ .topbar-in{gap:4px;padding:10px 8px} .tabs{gap:4px} .tabs .tab{padding:6px 7px;font-size:.76rem;gap:3px} .tab .badge{min-width:18px;height:18px;padding:0 4px} .langseg button{padding:6px 5px;font-size:.76rem} .kofi{width:32px;height:32px;min-height:32px} }
+      .kofi-foot{display:inline-flex;align-items:center;gap:6px;margin-top:2px;padding:7px 16px;border-radius:999px;background:#FFF0E8;border:2px dashed #FFD2C2;color:#C9573F;font-weight:800;text-decoration:none;transition:transform .15s,background .2s}
+      .kofi-foot:hover{background:#FFE3D6;transform:translateY(-1px)}
+      @media (prefers-color-scheme: dark){.kofi-foot{background:#4A3229;border-color:#6B4536;color:#FFC2AE}}
     </style>
   </head>
   <body>
@@ -301,6 +316,7 @@
           <button class="tab" id="tab-home" role="tab" aria-selected="true"></button>
           <button class="tab" id="tab-book" role="tab" aria-selected="false"></button>
         </div>
+        <a class="kofi" href="https://ko-fi.com/kanjicoffee" target="_blank" rel="noopener" aria-label="贊助支持（在新分頁開啟 Ko-fi）" title="贊助支持（Ko-fi）"><span class="cup" aria-hidden="true">☕</span><span class="lbl">贊助支持</span></a>
         <div class="langseg" role="group" aria-label="Language">
           <button id="lang-zh" aria-pressed="true">繁中</button>
           <button id="lang-en" aria-pressed="false">EN</button>
@@ -627,7 +643,7 @@
       document.getElementById("tab-book").innerHTML = esc(s.tabBook) + (wordbook.length ? ' <span class="badge">' + wordbook.length + "</span>" : "");
       document.getElementById("lang-zh").setAttribute("aria-pressed", lang==="zh" ? "true" : "false");
       document.getElementById("lang-en").setAttribute("aria-pressed", lang==="en" ? "true" : "false");
-      document.getElementById("foot").innerHTML = '<img src="assets/mascot-128.webp" alt="">' + '<span>' + esc(s.foot) + '</span>';
+      document.getElementById("foot").innerHTML = '<img src="assets/mascot-128.webp" alt="">' + '<a class="kofi-foot" href="https://ko-fi.com/kanjicoffee" target="_blank" rel="noopener">喜歡的話，請我喝杯咖啡 <span aria-hidden="true">☕</span></a>' + '<span>' + esc(s.foot) + '</span>';
       document.documentElement.lang = lang === "zh" ? "zh-Hant" : "en";
     }
 
