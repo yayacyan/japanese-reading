@@ -1,0 +1,15 @@
+name: Check fonts
+# 改了網站文字卻忘了重新產生字型時，這個檢查會失敗並提醒
+on:
+  push:
+  pull_request:
+jobs:
+  fonts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install fonttools brotli
+      - run: python3 tools/build-fonts.py --check
