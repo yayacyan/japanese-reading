@@ -1,13 +1,13 @@
 /* 讀日文小工程 service worker：重複造訪秒開、離線也能讀 */
 var PREFIX = "drw-";
-var CACHE = PREFIX + "ba308533";
+var CACHE = PREFIX + "f5c0ea33";
 var CORE = [
   "./",
-  "assets/fonts/mplus-400.woff2?v=09927ce714",
-  "assets/fonts/mplus-700.woff2?v=fd49558b1b",
-  "assets/fonts/mplus-800.woff2?v=a30877d3b6",
-  "assets/fonts/mplus-900.woff2?v=9d1626dc08",
-  "assets/fonts/notosanstc.woff2?v=8bfdc37149",
+  "assets/fonts/mplus-400.woff2?v=3ac0254f95",
+  "assets/fonts/mplus-700.woff2?v=822258bb3a",
+  "assets/fonts/mplus-800.woff2?v=2456896b0d",
+  "assets/fonts/mplus-900.woff2?v=3361fc3fc9",
+  "assets/fonts/notosanstc.woff2?v=111ba6dc3a",
   "assets/mascot.webp",
   "assets/mascot-128.webp"
 ];

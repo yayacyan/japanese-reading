@@ -19,15 +19,15 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://yayacyan.github.io/japanese-reading/assets/og-image.png" />
     <title>讀日文小工程</title>
-    <link rel="preload" href="assets/fonts/mplus-400.woff2?v=09927ce714" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="assets/fonts/mplus-800.woff2?v=a30877d3b6" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/mplus-400.woff2?v=3ac0254f95" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/mplus-800.woff2?v=2456896b0d" as="font" type="font/woff2" crossorigin />
     <style>
       /* 自架字型：只含本站用到的字，改文字後請跑 tools/build-fonts.py 重新產生 */
-      @font-face{font-family:"M PLUS Rounded 1c";font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/mplus-400.woff2?v=09927ce714) format("woff2")}
-      @font-face{font-family:"M PLUS Rounded 1c";font-style:normal;font-weight:700;font-display:swap;src:url(assets/fonts/mplus-700.woff2?v=fd49558b1b) format("woff2")}
-      @font-face{font-family:"M PLUS Rounded 1c";font-style:normal;font-weight:800;font-display:swap;src:url(assets/fonts/mplus-800.woff2?v=a30877d3b6) format("woff2")}
-      @font-face{font-family:"M PLUS Rounded 1c";font-style:normal;font-weight:900;font-display:swap;src:url(assets/fonts/mplus-900.woff2?v=9d1626dc08) format("woff2")}
-      @font-face{font-family:"Noto Sans TC";font-style:normal;font-weight:100 900;font-display:swap;src:url(assets/fonts/notosanstc.woff2?v=8bfdc37149) format("woff2")}
+      @font-face{font-family:"M PLUS Rounded 1c";font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/mplus-400.woff2?v=3ac0254f95) format("woff2")}
+      @font-face{font-family:"M PLUS Rounded 1c";font-style:normal;font-weight:700;font-display:swap;src:url(assets/fonts/mplus-700.woff2?v=822258bb3a) format("woff2")}
+      @font-face{font-family:"M PLUS Rounded 1c";font-style:normal;font-weight:800;font-display:swap;src:url(assets/fonts/mplus-800.woff2?v=2456896b0d) format("woff2")}
+      @font-face{font-family:"M PLUS Rounded 1c";font-style:normal;font-weight:900;font-display:swap;src:url(assets/fonts/mplus-900.woff2?v=3361fc3fc9) format("woff2")}
+      @font-face{font-family:"Noto Sans TC";font-style:normal;font-weight:100 900;font-display:swap;src:url(assets/fonts/notosanstc.woff2?v=111ba6dc3a) format("woff2")}
       :root{
         --bg:#FFFAFC; --surface:#FFFFFF; --surface2:#F6F2FF; --ink:#3B3A4A; --ink2:#6B6780; --line:#EFE6F2;
         --coral:#EE6A86; --blue:#4F8FE3; --orange:#EF8F3C; --plum:#9070DA; --teal:#2FA78C;
@@ -188,12 +188,12 @@
       .pstep.on{border-color:var(--teal);color:var(--teal-ink);background:var(--teal-t)}
       .passage{background:var(--surface);border:2px solid var(--line);border-radius:var(--radius);padding:24px 22px 14px;margin-top:14px;box-shadow:var(--shadow);
         background-image:repeating-linear-gradient(transparent 0 calc(2.35em - 1px), color-mix(in srgb,var(--blue) 9%,transparent) calc(2.35em - 1px) 2.35em);background-size:100% 2.35em}
-      .passage p{font-size:1.22rem;line-height:2.35;margin:0 0 18px;letter-spacing:.02em}
+      .passage p{font-size:1.22rem;line-height:2.35;margin:0 0 18px;letter-spacing:.02em;word-break:keep-all;overflow-wrap:anywhere}
       body.no-furi #view-reader rt, body.no-furi .sheet .ex rt, body.no-furi .sheet .body rt{display:none}
       rt{font-size:.52em;color:var(--ink2);font-weight:500}
       .tok{border-radius:6px;padding:2px 1px;-webkit-tap-highlight-color:transparent}
       button.tok{min-height:0;transition:background .15s}
-      button.tok-1{min-width:1.9em;text-align:center}
+      button.tok-1{min-width:1.5em;text-align:center}
       .tok-v{border-bottom:2.5px dotted var(--blue);cursor:pointer}
       .tok-v:hover{background:var(--blue-t)}
       .tok-g{background:var(--gram-bg);border-bottom:2.5px solid var(--plum);font-weight:700;cursor:pointer}
@@ -518,12 +518,12 @@
       wa:{pattern:"〜は",t_zh:"主題：「說到〜」（唸 wa）",t_en:"Topic marker は (read 'wa')",b_zh:"「は」當助詞的時候唸「wa」，不唸「ha」。它標出這句話在講誰、講什麼：「私は〜」＝「我呢，〜」。日文常把主題放在句子最前面，後面再說明它。",b_en:"As a particle, は is read 'wa', not 'ha'. It marks what the sentence is about: 私は〜 = 'As for me, …'. Japanese usually puts the topic first and then says something about it.",exJp:"私は 学生です。",ex_zh:"我是學生。",ex_en:"I am a student."},
       wo:{pattern:"〜を",t_zh:"動作的對象（唸 o）",t_en:"Object marker を (read 'o')",b_zh:"「を」唸「o」，放在動作的對象後面：お茶を 買いました＝買了茶。中文裡放在動詞後面的「受詞」，日文大多用「を」標出來，動詞則放在句尾。",b_en:"を is read 'o'. It goes after the thing an action is done to: お茶を 買いました = 'bought tea'. In Japanese the verb comes last, and を marks its object.",exJp:"毎朝、コーヒーを 飲みます。",ex_zh:"我每天早上喝咖啡。",ex_en:"I drink coffee every morning."},
       dePlace:{pattern:"〜で（地點）",t_zh:"在哪裡做事",t_en:"Where an action happens: で",b_zh:"「で」放在地點後面，表示動作在那裡發生：ここで 買います＝在這裡買。注意：只是說「某處有某物」要用「に」：駅の 近くに コンビニが あります。",b_en:"で after a place marks where an action happens: ここで 買います = 'buy (it) here'. To say where something simply is, use に instead: 駅の 近くに コンビニが あります.",exJp:"コンビニで おにぎりを 買います。",ex_zh:"在便利商店買飯糰。",ex_en:"I buy rice balls at the convenience store."},
-      mo:{pattern:"〜も",t_zh:"也",t_en:"Also: も",b_zh:"「も」是「也」。它直接取代「は」「が」「を」：トマトを 買いました → トマトも 買いました（番茄也買了）。和「に」「へ」「で」一起用時則接在後面：明日も、駅へも。",b_en:"も means 'also'. It replaces は, が or を: トマトを 買いました → トマトも 買いました ('bought tomatoes too'). With に, へ or で it is added after them.",exJp:"トマトも 買いました。",ex_zh:"番茄也買了。",ex_en:"I bought tomatoes too."},
-      niTime:{pattern:"〜に（時間）",t_zh:"在某個時間點",t_en:"At a point in time: に",b_zh:"具體的時間點（星期幾、幾點、日期）後面加「に」：土曜日に 行きます。但「今日、明日、毎週、毎朝」這種相對的時間不加「に」。",b_en:"Put に after a specific time (a weekday, a clock time, a date): 土曜日に 行きます. Relative times such as 今日, 明日, 毎週 and 毎朝 take no に.",exJp:"土曜日に 友だちの 家へ 行きます。",ex_zh:"星期六去朋友家。",ex_en:"I go to my friend's house on Saturday."},
-      teForm:{pattern:"て形的變化",t_zh:"動詞怎麼變成て形",t_en:"How to make the て-form",b_zh:"從ます形來看：\n・第一類：〜います／〜ちます／〜ります → って（言います→言って、待ちます→待って、帰ります→帰って）；〜みます／〜びます／〜にます → んで（住みます→住んで、遊びます→遊んで）；〜きます → いて（歩きます→歩いて，例外：行きます→行って）；〜ぎます → いで；〜します → して。\n・第二類：去掉ます，加て（見ます→見て、入れます→入れて）。\n・第三類：します→して、来ます→来て。",b_en:"Start from the ます-form:\n• Group 1: 〜います / 〜ちます / 〜ります → って (言います→言って, 待ちます→待って, 帰ります→帰って); 〜みます / 〜びます / 〜にます → んで (住みます→住んで, 遊びます→遊んで); 〜きます → いて (歩きます→歩いて; exception 行きます→行って); 〜ぎます → いで; 〜します → して.\n• Group 2: drop ます, add て (見ます→見て, 入れます→入れて).\n• Group 3: します→して, 来ます→来て.",exJp:"「大丈夫だよ」と 言って、笑いました。",ex_zh:"他說「沒關係喔」，然後笑了。",ex_en:"He said 'It's fine!' and smiled."},
+      mo:{pattern:"〜も",t_zh:"也",t_en:"Also: も",b_zh:"「も」是「也」。它直接取代「は」「が」「を」：トマトを 買いました → トマトも 買いました（番茄也買了）。和「に」「へ」「で」一起用時則接在它們後面：土曜日にも、駅へも、ここでも。",b_en:"も means 'also'. It replaces は, が or を: トマトを 買いました → トマトも 買いました ('bought tomatoes too'). With に, へ or で it is added after them: 土曜日にも, 駅へも, ここでも.",exJp:"トマトも 買いました。",ex_zh:"番茄也買了。",ex_en:"I bought tomatoes too."},
+      niTime:{pattern:"〜に（時間）",t_zh:"在某個時間點",t_en:"At a point in time: に",b_zh:"具體的時間點（星期幾、幾點、日期）後面加「に」：土曜日に 行きます。但「今日、明日」這種相對的時間，和「毎週、毎朝」這種表示頻率的詞，本身不加「に」。課文的「毎週 土曜日に」，「に」是跟著「土曜日」。",b_en:"Put に after a specific time (a weekday, a clock time, a date): 土曜日に 行きます. Relative times (今日, 明日) and frequency words (毎週, 毎朝) take no に by themselves — in 毎週 土曜日に, the に belongs to 土曜日.",exJp:"土曜日に 友だちの 家へ 行きます。",ex_zh:"星期六去朋友家。",ex_en:"I go to my friend's house on Saturday."},
+      teForm:{pattern:"て形的變化",t_zh:"動詞怎麼變成て形",t_en:"How to make the て-form",b_zh:"從ます形來看：\n・第一類：〜います／〜ちます／〜ります → って（言います→言って、待ちます→待って、帰ります→帰って）；〜みます／〜びます／〜にます → んで（住みます→住んで、遊びます→遊んで）；〜きます → いて（歩きます→歩いて，例外：行きます→行って）；〜ぎます → いで（泳ぎます→泳いで）；〜します → して（話します→話して）。\n・第二類：去掉ます，加て（見ます→見て、入れます→入れて）。第二類多半是「〜えます」，還有一部分「〜います」（見ます、起きます、います），不要套用第一類的規則。\n・第三類：します→して、来ます→来て。",b_en:"Start from the ます-form:\n• Group 1: 〜います / 〜ちます / 〜ります → って (言います→言って, 待ちます→待って, 帰ります→帰って); 〜みます / 〜びます / 〜にます → んで (住みます→住んで, 遊びます→遊んで); 〜きます → いて (歩きます→歩いて; exception 行きます→行って); 〜ぎます → いで (泳ぎます→泳いで); 〜します → して (話します→話して).\n• Group 2: drop ます, add て (見ます→見て, 入れます→入れて). Most group-2 verbs end in 〜えます, plus some 〜います verbs (見ます, 起きます, います) — don't apply the group-1 rules to them.\n• Group 3: します→して, 来ます→来て.",exJp:"「大丈夫だよ」と 言って、笑いました。",ex_zh:"他說「沒關係喔」，然後笑了。",ex_en:"He said 'It's fine!' and smiled."},
       casual:{pattern:"〜だよ",t_zh:"朋友之間的說法（普通體）",t_en:"Casual speech between friends",b_zh:"「大丈夫だよ」是「大丈夫ですよ」的普通體，用在朋友、家人之間。「だ」是「です」的普通形，句尾的「よ」是「我跟你說喔」的語氣。對長輩或不熟的人要用「です」。",b_en:"大丈夫だよ is the casual version of 大丈夫ですよ, used with friends and family. だ is the plain form of です, and よ adds 'I'm telling you'. Use です with people you don't know well or who are older.",exJp:"「大丈夫ですよ。」→「大丈夫だよ。」",ex_zh:"「沒關係喔。」（禮貌）→「沒關係啦。」（朋友之間）",ex_en:"'It's all right.' (polite) → 'It's fine!' (casual)"},
       he:{pattern:"〜へ 行きます",t_zh:"往某個地方去",t_en:"Going to a place",b_zh:"「へ」唸作「え」，放在地點後面，標示移動的方向。中文的「去某地」，日文會說「地點＋へ＋行きます」。",b_en:"へ is read 'e'. Put it after a place to show the direction of movement: place + へ + 行きます means 'go to (a place)'.",exJp:"私は 毎朝、駅の 近くの コンビニへ 行きます。",ex_zh:"我每天早上都去車站附近的便利商店。",ex_en:"Every morning I go to the convenience store near the station."},
-      toList:{pattern:"〜と〜",t_zh:"把東西全部列出來：和、跟",t_en:"Listing things completely: 'and'",b_zh:"名詞和名詞之間放「と」，表示「就是這幾樣」，相當於中文的「和」。如果只是舉幾個例子、還有別的，要改用「や」：さけや うめ（鮭魚啦、梅子啦…等等）。列了幾個，就用幾個「と」接起來。",b_en:"Put と between nouns when the list is complete — 'A and B (and that's all)'. When you only give examples and there are more, use や instead: さけや うめ ('salmon, plum and so on').",exJp:"おにぎりと お茶を 買いました。",ex_zh:"我買了飯糰和茶。",ex_en:"I bought a rice ball and tea."},
+      toList:{pattern:"〜と〜",t_zh:"把東西全部列出來：和、跟",t_en:"Listing things completely: 'and'",b_zh:"名詞和名詞之間放「と」，表示「就是這幾樣」，相當於中文的「和」。如果只是舉幾個例子、還有別的，要改用「や」：さけや うめ（鮭魚啦、梅子啦…等等）。列三樣以上時，每兩個名詞之間都放一個「と」：じゃがいもと にんじんと 玉ねぎ。",b_en:"Put と between nouns when the list is complete — 'A and B (and that's all)'. When you only give examples and there are more, use や instead: さけや うめ ('salmon, plum and so on').",exJp:"おにぎりと お茶を 買いました。",ex_zh:"我買了飯糰和茶。",ex_en:"I bought a rice ball and tea."},
       suki:{pattern:"〜が 好きです",t_zh:"喜歡的對象用「が」",t_en:"What you like takes が",b_zh:"說「喜歡某樣東西」的時候，喜歡的對象要用「が」，不用「を」。這是初學者最常寫錯的地方之一。",b_en:"When you say you like something, the thing you like takes が, not を. This is a classic beginner mistake.",exJp:"私は さけが 好きです。",ex_zh:"我喜歡鮭魚口味。",ex_en:"I like the salmon one."},
       mashita:{pattern:"〜ました",t_zh:"禮貌的過去式：過去的事",t_en:"Polite past tense",b_zh:"動詞的「ます」換成「ました」，就是在說過去發生的事：買います→買いました（〔那時〕買了）。注意它是「過去式」，不等於中文的「了」或「已經」：「已經」要用「もう」（もう買いました＝已經買了），而「還沒吃」是「まだ食べていません」，不是「食べませんでした」（那時沒吃）。",b_en:"Change ます to ました to talk about the past: 買います → 買いました ('bought'). It is a past tense, not a marker of completion: 'already' is もう (もう買いました), and 'haven't eaten yet' is まだ食べていません, not 食べませんでした ('didn't eat [then]').",exJp:"今日は おにぎりと お茶を 買いました。",ex_zh:"今天我買了飯糰和茶。",ex_en:"Today I bought a rice ball and tea."},
       tai:{pattern:"〜たいです",t_zh:"想要做某件事",t_en:"Want to do something",b_zh:"動詞「ます」形去掉「ます」，加上「たいです」，就是「想要做〜」。行きます→行きたいです（想去）。主要用來說自己的願望；問對方「〜たいですか」也可以，但對長輩、上司直接問不太禮貌。「お茶を 飲みたいです」的「を」也可以換成「が」。",b_en:"Take the ます-form, drop ます and add たいです: 行きます → 行きたいです ('want to go'). It is mainly for your own wishes; asking someone 〜たいですか is possible but can sound pushy toward superiors. The を before it may also become が.",exJp:"明日も コンビニへ 行きたいです。",ex_zh:"明天我也想去便利商店。",ex_en:"I want to go to the convenience store tomorrow too."},
@@ -614,13 +614,13 @@
           a2_yama:{w:"山",r:"やま",pos:"名詞 noun",zh:"山",en:"mountain",exJp:"あの 山は 高いです。",ex_zh:"那座山很高。",ex_en:"That mountain is tall."}
         },
         paragraphs:[
-          [T("私","わたし"),T("は"),T("熊本","くまもと","a2_kumamoto"),T("に"),T("住んでいます","すんでいます","a2_sunde","teiru"),T("。"),T("毎週","まいしゅう","a2_maishuu"),T("土曜日","どようび","a2_doyoubi"),T("に","","","niTime"),T("、"),T("電車","でんしゃ","a2_densha"),T("で","","","deMeans"),T("友だち","ともだち","a2_tomodachi"),T("の"),T("家","いえ","a2_ie"),T("へ"),T("遊び","あそび","a2_asobi","asobini"),T("に"),T("行きます","いきます","","asobini"),T("。")],
-          [T("電車","でんしゃ","a2_densha"),T("は"),T("10分","じゅっぷん"),T("に"),T("一本","いっぽん"),T("あります"),T("。"),T("今日","きょう"),T("は"),T("少し","すこし","a2_sukoshi"),T("遅れました","おくれました","a2_okure"),T("。"),T("でも、"),T("友だち","ともだち","a2_tomodachi"),T("は"),T("駅","えき"),T("で"),T("待って","まって","a2_matte"),T("いました"),T("。"),T("「大丈夫","だいじょうぶ","a2_daijoubu"),T("だよ","","","casual"),T("」"),T("と"),T("言って","いって","","teForm"),T("、"),T("笑いました","わらいました","a2_warai"),T("。")],
+          [T("私","わたし"),T("は"),T("熊本","くまもと","a2_kumamoto"),T("に"),T("住んで","すんで","a2_sunde","teiru"),T("います","","","teiru"),T("。"),T("毎週","まいしゅう","a2_maishuu"),T("土曜日","どようび","a2_doyoubi"),T("に","","","niTime"),T("、"),T("電車","でんしゃ","a2_densha"),T("で","","","deMeans"),T("友だち","ともだち","a2_tomodachi"),T("の"),T("家","いえ","a2_ie"),T("へ"),T("遊び","あそび","a2_asobi","asobini"),T("に"),T("行きます","いきます","","asobini"),T("。")],
+          [T("電車","でんしゃ","a2_densha"),T("は"),T("10分","じゅっぷん"),T("に"),T("一本","いっぽん"),T("あります"),T("。"),T("今日","きょう"),T("は"),T("電車","でんしゃ","a2_densha"),T("が"),T("少し","すこし","a2_sukoshi"),T("遅れました","おくれました","a2_okure"),T("。"),T("でも、"),T("友だち","ともだち","a2_tomodachi"),T("は"),T("駅","えき"),T("で"),T("待って","まって","a2_matte"),T("いました"),T("。"),T("「大丈夫","だいじょうぶ","a2_daijoubu"),T("だよ","","","casual"),T("」"),T("と"),T("言って","いって","","teForm"),T("、"),T("笑いました","わらいました","a2_warai"),T("。")],
           [T("電車","でんしゃ","a2_densha"),T("の"),T("中","なか","a2_naka"),T("は"),T("静か","しずか","a2_shizuka"),T("で、"),T("きれいです"),T("。"),T("私","わたし"),T("は"),T("いつも"),T("窓","まど","a2_mado"),T("の"),T("外","そと","a2_soto"),T("を"),T("見ます","みます","a2_miru"),T("。"),T("熊本","くまもと","a2_kumamoto"),T("の"),T("山","やま","a2_yama"),T("は"),T("とても"),T("きれいです"),T("。")]
         ],
         quiz:[
           {q:"この人は 毎週 何曜日に 友だちの 家へ 行きますか。",opts:["日曜日","金曜日","土曜日"],ans:2,why_zh:"文中寫「毎週 土曜日に」去朋友家。",why_en:"The passage says 毎週 土曜日に — every Saturday."},
-          {q:"今日、電車は どうでしたか。",opts:["少し 遅れました","早く 来ました","来ませんでした"],ans:0,why_zh:"文中寫「今日は 少し 遅れました」，電車稍微誤點。",why_en:"The passage says 今日は 少し 遅れました — it was a little late."},
+          {q:"今日、電車は どうでしたか。",opts:["少し 遅れました","早く 来ました","来ませんでした"],ans:0,why_zh:"文中寫「今日は 電車が 少し 遅れました」，電車稍微誤點。",why_en:"The passage says 今日は 電車が 少し 遅れました — the train was a little late."},
           {q:"この人は 電車の 中で いつも 何を しますか。",opts:["本を 読みます","窓の 外を 見ます","音楽を 聞きます"],ans:1,why_zh:"文中寫「いつも 窓の 外を 見ます」。",why_en:"The passage says いつも 窓の 外を 見ます — she always looks out of the window."},
           {q:"友だちは どうして 「大丈夫だよ」と 言いましたか。",opts:["電車が 少し 遅れましたから","電車の 中が 静かでしたから","熊本の 山が きれいでしたから"],ans:0,why_zh:"電車誤點，她晚到了；朋友在車站等她，笑著說「沒關係」。這題要把前後句連起來想。",why_en:"The train was late, so she arrived late; her friend, who was waiting, smiled and said it was fine. Connect the sentences to answer."}
         ]
@@ -708,6 +708,7 @@
     function rubyRaw(w, r){ return "<ruby>" + esc(w) + "<rt>" + esc(r) + "</rt></ruby>"; }
     function ruby(w, r){
       if(!r || r === w) return esc(w);
+      if(w.charAt(0) === "「") return "「" + ruby(w.slice(1), r);
       var m = w.match(/^(.+)（(.+)）$/);                // e.g. うめ（梅）: the reading belongs to the kanji in brackets
       if(m && m[1] === r) return esc(m[1]) + "（" + rubyRaw(m[2], r) + "）";
       var runs = [], cur = null;
@@ -735,7 +736,7 @@
       "遊びます":"あそびます","行きたいです":"いきたいです","一本":"いっぽん","甘くて":"あまくて","入れました":"いれました","帰って":"かえって","後ろ":"うしろ","買い物":"かいもの","乗ります":"のります","歩いて":"あるいて",
       "読みます":"よみます","聞きます":"ききます","飲みます":"のみます","住みます":"すみます","住んで":"すんで","待ちます":"まちます","帰ります":"かえります",
       "遊んで":"あそんで","行って":"いって","言って":"いって","見て":"みて","入れて":"いれて","来ます":"きます","来て":"きて","歩きます":"あるきます",
-      "安かった":"やすかった","飲みたいです":"のみたいです","入れます":"いれます","笑って":"わらって","食べて":"たべて","食べ":"たべ","土曜日":"どようび","友だち":"ともだち","三人":"さんにん","魚":"さかな"};
+      "安かった":"やすかった","飲みたいです":"のみたいです","入れます":"いれます","泳ぎます":"およぎます","泳いで":"およいで","話します":"はなします","話して":"はなして","起きます":"おきます","笑って":"わらって","食べて":"たべて","食べ":"たべ","土曜日":"どようび","友だち":"ともだち","三人":"さんにん","魚":"さかな"};
     var FURI_DICT = null, FURI_KEYS = null;
     function furiDict(){
       if(FURI_DICT) return;
@@ -1201,9 +1202,9 @@
       [
         ["さ","サ","sa",3,3,"先寫橫畫，再寫直彎，最後補左下的弧線","Cross bar, vertical curve, then the arc at the lower left.","先寫橫畫，再補左邊的短直，最後彎鉤","Cross bar, short stroke on the left, then the hook.","さくら","櫻花","cherry blossom","サッカー","足球","soccer"],
         ["し","シ","shi",1,3,"一筆由上往下彎，像一根小鉤子","One stroke curving down like a little hook.","兩小點由上往下寫，最後一筆從左下往右上挑","Two short strokes, top one first, then the long stroke rising from the lower left.","すし","壽司","sushi","シール","貼紙","sticker"],
-        ["す","ス","su",2,2,"先寫橫畫，再寫直畫往下、中間繞一圈再往左下收","Cross bar, then the vertical that loops in the middle and sweeps down to the left.","先寫橫帶彎，再寫左邊的斜撇","Cross-and-curve first, then the sweep on the left.","すいか","西瓜","watermelon","スプーン","湯匙","spoon"],
+        ["す","ス","su",2,2,"先寫橫畫，再寫直畫往下、中間繞一圈再往左下收","Cross bar, then the vertical that loops in the middle and sweeps down to the left.","先寫橫折撇（像フ），再從中間往右下寫短筆","The bar that turns and sweeps down (like フ), then the short stroke from the middle down to the right.","すいか","西瓜","watermelon","スプーン","湯匙","spoon"],
         ["せ","セ","se",3,2,"先寫橫畫，再寫右邊的直鉤，最後補左邊的短直","Cross bar, right vertical hook, then the short stroke on the left.","先寫橫帶鉤，再寫彎角","Cross-and-hook, then the corner stroke.","せんせい","老師","teacher","セーター","毛衣","sweater"],
-        ["そ","ソ","so",1,2,"一筆完成：上面兩個小折，再一路彎到底（手寫也常分成兩筆）","One stroke: two small zig-zags on top, then one long curve (often handwritten as two strokes).","先寫左上的短點，再寫彎鉤","Short stroke at the upper left, then the curving hook.","そら","天空","sky","ソファ","沙發","sofa"]
+        ["そ","ソ","so",1,2,"一筆完成：上面兩個小折，再一路彎到底（手寫也常分成兩筆）","One stroke: two small zig-zags on top, then one long curve (often handwritten as two strokes).","先寫左上的短點，再從右上往左下寫長撇","Short stroke at the upper left, then the curving hook.","そら","天空","sky","ソファ","沙發","sofa"]
       ],
       [
         ["た","タ","ta",4,3,"先寫橫畫，再寫左邊的撇，右邊再補兩小畫","Cross bar, left sweep, then two small strokes on the right.","先寫斜撇，再寫彎角，最後補裡面的短橫","Diagonal sweep, corner stroke, then the short bar inside.","たまご","蛋","egg","タクシー","計程車","taxi"],
@@ -1372,8 +1373,8 @@
     ];
     /* pronunciation rules: [title_zh, title_en, body_zh, body_en, [[word, romaji, zh, en], ...]] */
     var PRON_RULES = [
-      ["促音「っ」：停一拍","Small っ: a one-beat pause","小小的「っ」本身不發音，但要停頓一拍，再接下一個音。羅馬拼音把下一個子音寫兩次。","A small っ has no sound of its own, but takes one beat of silence before the next sound. In romaji the next consonant is doubled.",[["きって","kitte","郵票","stamp"],["ざっし","zasshi","雜誌","magazine"],["ちょっと","chotto","一點點","a little"]]],
-      ["長音：拉長一拍","Long vowels: hold for one more beat","母音拉長一拍，長短不同意思就不同：おばさん（阿姨）／おばあさん（奶奶）。「えい」通常唸成長長的「ええ」，「おう」唸成「おお」：せんせい、きょう。片假名用「ー」表示：ケーキ。","Hold the vowel for an extra beat — length changes meaning: おばさん (aunt) vs おばあさん (grandmother). えい is usually said as a long ええ and おう as a long おお: せんせい, きょう. Katakana uses ー: ケーキ.",[["おばあさん","obaasan","奶奶","grandmother"],["せんせい","sensee","老師","teacher"],["ケーキ","keeki","蛋糕","cake"]]],
+      ["促音「っ」：停一拍","Small っ: a one-beat pause","小小的「っ」本身不發音，但要停頓一拍，再接下一個音。羅馬拼音把下一個子音寫兩次；ch 前面則寫成 tch：まっちゃ（matcha）。","A small っ has no sound of its own, but takes one beat of silence before the next sound. In romaji the next consonant is doubled (before ch it becomes tch: まっちゃ, matcha).",[["きって","kitte","郵票","stamp"],["ざっし","zasshi","雜誌","magazine"],["ちょっと","chotto","一點點","a little"]]],
+      ["長音：拉長一拍","Long vowels: hold for one more beat","母音拉長一拍，長短不同意思就不同：おばさん（阿姨）／おばあさん（奶奶）。「えい」通常唸成長長的「ええ」，「おう」唸成「おお」：せんせい、きょう。羅馬拼音有時用 ō、ē 表示長音。片假名用「ー」表示：ケーキ。","Hold the vowel for an extra beat — length changes meaning: おばさん (aunt) vs おばあさん (grandmother). えい is usually said as a long ええ and おう as a long おお: せんせい, きょう. Katakana uses ー: ケーキ.",[["おばあさん","obaasan","奶奶","grandmother"],["せんせい","sensei（唸 sensee）","老師","teacher"],["ケーキ","keeki","蛋糕","cake"]]],
       ["撥音「ん」：自己算一拍","ん: a beat of its own","「ん」單獨占一拍。它的實際音會跟著後面的音變：在 p、b、m 前面接近 m（さんぽ），在 k、g 前面接近 ng（りんご）。","ん takes a full beat. Its sound shifts with the next sound: close to m before p/b/m (さんぽ), close to ng before k/g (りんご).",[["ほん","hon","書","book"],["さんぽ","sanpo","散步","a walk"],["りんご","ringo","蘋果","apple"]]],
       ["助詞的特別唸法：は・へ・を","Particles は, へ, を","當助詞的時候，「は」唸 wa、「へ」唸 e、「を」唸 o。寫法不變，只是唸法不同。","As particles, は is read wa, へ is read e and を is read o. The spelling stays the same; only the reading changes.",[["わたしは","watashi wa","我（呢）","as for me"],["えきへ","eki e","往車站","to the station"],["おちゃを","ocha o","（把）茶","tea (object)"]]]
     ];
@@ -1504,7 +1505,7 @@
       "ら":{w:"らくだ",r:"rakuda",zh:"駱駝",en:"camel",i:"camel"},
       "り":{w:"りんご",r:"ringo",zh:"蘋果",en:"apple",i:"apple"},
       "る":{w:"るり",r:"ruri",zh:"琉璃（藍色寶石）",en:"lapis lazuli",i:"gem"},
-      "ろ":{w:"ろうそく",r:"rousoku",zh:"蠟燭",en:"candle",i:"candle"},
+      "ろ":{w:"ろうそく",r:"rōsoku",zh:"蠟燭",en:"candle",i:"candle"},
       "わ":{w:"わに",r:"wani",zh:"鱷魚",en:"crocodile",i:"croc"},
       "を":{w:"ほんを よみます",r:"hon o yomimasu",zh:"讀書（を 是標示受詞的助詞）",en:"to read a book (を marks the object)",i:"book"},
       "ん":{w:"ほん",r:"hon",zh:"書",en:"book",i:"book"}
