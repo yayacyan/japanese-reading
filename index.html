@@ -445,7 +445,7 @@
         heroTitle:'Read your way up, <span class="hl">one article</span> at a time.',
         heroKana:"New to kana? Start with the kana charts →", heroRead:"I know kana: read the first N5 article",
         heroSub:"Graded Japanese reading, from the kana up through N5 and beyond. Every article follows the same flow: read the passage, tap words for meanings, unlock the grammar, take the quiz — and new words are saved to your wordbook automatically.",
-        statDone:"articles finished", statWords:"words in your wordbook",
+        statDone:"articles finished", statWords:"words in your wordbook", statWords1:"word in your wordbook",
         stepsTitle:"One article, six steps", stepsSub:"Every article follows this rhythm. Finish it, and you truly understood it.",
         steps:[
           ["Read the passage","Original short stories about daily life in Kumamoto, sized by level.","var(--coral-ink)"],
@@ -484,7 +484,7 @@
         bookTitle:"My Wordbook", bookSub:"Every word you tapped in the articles lives here, stored in this device's browser. No account needed.",
         bookEmptyT:"Your wordbook is empty", bookEmptyB:"Go read an article and tap a word with a blue dotted line — it will show up here automatically.",
         bookGo:"Read the N5 articles", from:"From: ", remove:"Remove",
-        bookCount:"{n} words in total",
+        bookCount:"{n} words in total", bookCount1:"{n} word in total",
         gjTitle:"The Kana Charts (Gojuon)",
         gjSub:"The Japanese alphabet. Learn to recognize hiragana and katakana first, and reading articles gets much easier. Tap any kana for its romaji, stroke-order tips and an example word.",
         gjHira:"Hiragana", gjKata:"Katakana",
@@ -830,7 +830,7 @@
       var s = S(), done = ARTICLES.filter(function(a){ return isDone(a.id); }).length;
       var h = '<section class="hero"><div class="hero-grid"><div><h1 class="maru">' + s.heroTitle + '</h1><p>' + esc(s.heroSub) + '</p><div class="hero-cta"><button type="button" class="cta primary" id="cta-kana">' + esc(s.heroKana) + '</button><button type="button" class="cta ghost" id="cta-read">' + esc(s.heroRead) + '</button></div></div><img class="mascot" src="assets/mascot.webp" alt="" width="170" height="134" fetchpriority="high"></div>';
       h += '<div class="stats"><div class="stat"><b>' + done + " / " + ARTICLES.length + '</b><span>' + esc(s.statDone) + '</span></div>';
-      h += '<div class="stat"><b>' + wordbook.length + '</b><span>' + esc(s.statWords) + "</span></div></div></section>";
+      h += '<div class="stat"><b>' + wordbook.length + '</b><span>' + esc(wordbook.length === 1 && s.statWords1 ? s.statWords1 : s.statWords) + "</span></div></div></section>";
 
       h += '<h2 class="sec-title maru">' + esc(s.stepsTitle) + '</h2><p class="sec-sub">' + esc(s.stepsSub) + '</p><div class="steps">';
       s.steps.forEach(function(st, i){
@@ -925,7 +925,7 @@
       h += '<section class="panel"><h3 class="maru">' + esc(s.grammarTitle) + '</h3><p class="sub">' + esc(s.grammarSub) + "</p>";
       a.grammarIds.forEach(function(gid){
         var g = GRAMMAR[gid];
-        h += '<button class="gitem" data-grammar="' + gid + '"><span class="pat jp">' + furify(g.pattern) + '</span><span class="tt">' + esc(pick(g,"t")) + '</span><span class="arr">→</span></button>';
+        h += '<button class="gitem" data-grammar="' + gid + '"><span class="pat jp">' + furify(lang === "en" ? g.pattern.replace(/（[^）]*）/g, "") : g.pattern) + '</span><span class="tt">' + esc(pick(g,"t")) + '</span><span class="arr">→</span></button>';
       });
       h += "</section>";
 
@@ -1098,7 +1098,7 @@
       h += '<div class="lbl">' + esc(s.lblExample) + '</div><div class="ex jp">' + furify(e.exJp) + '</div><div class="exzh">' + esc(pick(e,"ex")) + "</div>";
       if(gid && GRAMMAR[gid]){
         var g = GRAMMAR[gid];
-        h += '<div class="lbl">' + esc(s.kindGrammar) + ' · <span class="jp">' + furify(g.pattern) + '</span></div><div class="body"><b>' + esc(pick(g,"t")) + "</b> — " + furifyMixed(pick(g,"b")) + "</div>";
+        h += '<div class="lbl">' + esc(s.kindGrammar) + ' · <span class="jp">' + furify(lang === "en" ? g.pattern.replace(/（[^）]*）/g, "") : g.pattern) + '</span></div><div class="body"><b>' + esc(pick(g,"t")) + "</b> — " + furifyMixed(pick(g,"b")) + "</div>";
       }
       h += '<div class="saved-note">✓ ' + esc(s.savedNote) + "</div>";
       openSheet(h); updateStrip();
@@ -1108,7 +1108,7 @@
       viewedG[curArticle.id][gid] = true;
       saveState();
       var s = S();
-      var h = '<span class="kind g">' + esc(s.kindGrammar) + '</span><h3 class="jp" id="sheet-title">' + furify(g.pattern) + '</h3><div class="pos">' + esc(pick(g,"t")) + "</div>";
+      var h = '<span class="kind g">' + esc(s.kindGrammar) + '</span><h3 class="jp" id="sheet-title">' + furify(lang === "en" ? g.pattern.replace(/（[^）]*）/g, "") : g.pattern) + '</h3><div class="pos">' + esc(pick(g,"t")) + "</div>";
       h += '<div class="lbl">' + esc(s.lblHow) + '</div><div class="body">' + furifyMixed(pick(g,"b")) + "</div>";
       h += '<div class="lbl">' + esc(s.lblInText) + '</div><div class="ex jp">' + furify(g.exJp) + '</div><div class="exzh">' + esc(pick(g,"ex")) + "</div>";
       openSheet(h); updateStrip();
@@ -1121,7 +1121,7 @@
       if(!wordbook.length){
         h += '<div class="empty"><img src="assets/mascot-sleep.webp" alt=""><div class="big">' + esc(s.bookEmptyT) + '</div><p>' + esc(s.bookEmptyB) + '</p><button class="nextbtn" id="bk-go" style="max-width:320px;margin:18px auto 0">' + esc(s.bookGo) + "</button></div>";
       } else {
-        h += '<p class="sec-sub" style="margin-top:14px">' + esc(s.bookCount.replace("{n}", wordbook.length)) + "</p>";
+        h += '<p class="sec-sub" style="margin-top:14px">' + esc((wordbook.length === 1 && s.bookCount1 ? s.bookCount1 : s.bookCount).replace("{n}", wordbook.length)) + "</p>";
         wordbook.forEach(function(e){
           var a = artById(e.aid);
           h += '<div class="book-item"><div><div class="w jp">' + ruby(e.w, e.r) + '</div><div class="pos" style="color:var(--ink2);font-size:.82rem;font-weight:700">' + esc(posText(e.pos)) + '</div><div class="m">' + esc(lang === "zh" ? e.zh : e.en) + '</div><div class="e"><span class="jp">' + furify(e.exJp) + "</span> — " + esc(lang === "zh" ? e.ex_zh : e.ex_en) + '</div><div class="src">' + esc(s.from) + esc(a ? pick(a,"t") : "") + '</div></div><button class="rm" data-rm="' + esc(e.vid) + '">' + esc(s.remove) + "</button></div>";
