@@ -19,21 +19,23 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://yayacyan.github.io/japanese-reading/assets/og-image.png" />
     <title>讀日文小工程</title>
-    <link rel="preload" href="assets/fonts/mplus-400.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="assets/fonts/mplus-800.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/mplus-400.woff2?v=05ee5817de" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/mplus-800.woff2?v=2f7392d595" as="font" type="font/woff2" crossorigin />
     <style>
       /* 自架字型：只含本站用到的字，改文字後請跑 tools/build-fonts.py 重新產生 */
-      @font-face{font-family:"M PLUS Rounded 1c";font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/mplus-400.woff2) format("woff2")}
-      @font-face{font-family:"M PLUS Rounded 1c";font-style:normal;font-weight:700;font-display:swap;src:url(assets/fonts/mplus-700.woff2) format("woff2")}
-      @font-face{font-family:"M PLUS Rounded 1c";font-style:normal;font-weight:800;font-display:swap;src:url(assets/fonts/mplus-800.woff2) format("woff2")}
-      @font-face{font-family:"M PLUS Rounded 1c";font-style:normal;font-weight:900;font-display:swap;src:url(assets/fonts/mplus-900.woff2) format("woff2")}
-      @font-face{font-family:"Noto Sans TC";font-style:normal;font-weight:100 900;font-display:swap;src:url(assets/fonts/notosanstc.woff2) format("woff2")}
+      @font-face{font-family:"M PLUS Rounded 1c";font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/mplus-400.woff2?v=05ee5817de) format("woff2")}
+      @font-face{font-family:"M PLUS Rounded 1c";font-style:normal;font-weight:700;font-display:swap;src:url(assets/fonts/mplus-700.woff2?v=a2d1e3f4dc) format("woff2")}
+      @font-face{font-family:"M PLUS Rounded 1c";font-style:normal;font-weight:800;font-display:swap;src:url(assets/fonts/mplus-800.woff2?v=2f7392d595) format("woff2")}
+      @font-face{font-family:"M PLUS Rounded 1c";font-style:normal;font-weight:900;font-display:swap;src:url(assets/fonts/mplus-900.woff2?v=a1082adc3f) format("woff2")}
+      @font-face{font-family:"Noto Sans TC";font-style:normal;font-weight:100 900;font-display:swap;src:url(assets/fonts/notosanstc.woff2?v=9d8d6179ff) format("woff2")}
       :root{
-        --bg:#FFFAFC; --surface:#FFFFFF; --surface2:#F6F2FF; --ink:#3B3A4A; --ink2:#77738A; --line:#EFE6F2;
+        --bg:#FFFAFC; --surface:#FFFFFF; --surface2:#F6F2FF; --ink:#3B3A4A; --ink2:#6B6780; --line:#EFE6F2;
         --coral:#EE6A86; --blue:#4F8FE3; --orange:#EF8F3C; --plum:#9070DA; --teal:#2FA78C;
         --coral-t:#FFE9EF; --blue-t:#E7F1FF; --orange-t:#FFF0E3; --plum-t:#F2ECFF; --teal-t:#E1F6EF;
         --gram-bg:#F2ECFF; --shadow:0 8px 24px rgba(120,90,140,.10); --shadow-lg:0 14px 34px rgba(120,90,140,.16);
         --radius:24px; --top-h:66px;
+        /* text and filled-button colors that pass WCAG AA contrast */
+        --coral-ink:#C42E52; --teal-ink:#1D7562; --orange-ink:#A4520C; --blue-ink:#2463BD; --plum-ink:#6F4CC4; --on-accent:#FFFFFF;
       }
       @media (prefers-color-scheme: dark){
         :root{
@@ -41,6 +43,7 @@
           --coral:#FF9AB0; --blue:#8DBBFF; --orange:#FFB878; --plum:#C7AEFF; --teal:#7FDCC4;
           --coral-t:#4A2C36; --blue-t:#25344D; --orange-t:#4A3526; --plum-t:#372D52; --teal-t:#1F4239;
           --gram-bg:#372D52; --shadow:0 10px 30px rgba(0,0,0,.4); --shadow-lg:0 14px 34px rgba(0,0,0,.5);
+          --coral-ink:#FF9AB0; --teal-ink:#7FDCC4; --orange-ink:#FFB878; --blue-ink:#8DBBFF; --plum-ink:#C7AEFF; --on-accent:#1D1B26;
         }
       }
       *{box-sizing:border-box}
@@ -69,12 +72,12 @@
       .tab{min-height:44px;padding:8px 16px;border-radius:999px;border:2px solid var(--line);background:var(--surface);font-weight:800;font-size:.95rem;display:inline-flex;align-items:center;gap:7px;transition:transform .15s,background .2s,border-color .2s;white-space:nowrap}
       .tab:hover{border-color:var(--coral);transform:translateY(-1px)}
       .tab:active{transform:scale(.96)}
-      .tab[aria-selected="true"]{background:var(--coral);color:#fff;border-color:var(--coral);box-shadow:0 6px 14px color-mix(in srgb,var(--coral) 35%,transparent)}
-      .tab .badge{background:#fff;color:var(--coral);border-radius:999px;min-width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:.78rem;padding:0 6px;font-weight:900;box-shadow:inset 0 0 0 2px var(--coral)}
+      .tab[aria-current="page"]{background:var(--coral-ink);color:var(--on-accent);border-color:var(--coral-ink);box-shadow:0 6px 14px color-mix(in srgb,var(--coral) 35%,transparent)}
+      .tab .badge{background:var(--on-accent);color:var(--coral-ink);border-radius:999px;min-width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:.78rem;padding:0 6px;font-weight:900;box-shadow:inset 0 0 0 2px var(--coral)}
       .tab .badge.bump{animation:wiggle .45s ease}
       .langseg{flex:none;display:flex;border:2px solid var(--line);border-radius:999px;overflow:hidden;background:var(--surface);padding:3px;gap:2px}
       .langseg button{white-space:nowrap;min-height:40px;min-width:44px;padding:6px 12px;font-weight:800;font-size:.85rem;border-radius:999px;transition:background .2s}
-      .langseg button[aria-pressed="true"]{background:var(--teal);color:#fff}
+      .langseg button[aria-pressed="true"]{background:var(--teal-ink);color:var(--on-accent)}
       @media (max-width:560px){ .brand span{display:none} .brand{margin-right:0} .brand img{width:34px;height:34px} .tab{padding:8px 12px;font-size:.9rem} .langseg button{padding:6px 9px} }
       @media (max-width:430px){ .topbar-in{gap:6px;padding:10px 12px} .tabs{gap:6px} .tab{padding:8px 10px;font-size:.86rem;gap:5px} .tab .badge{min-width:20px;height:20px;font-size:.72rem;padding:0 5px} .brand img{width:30px;height:30px} .langseg button{padding:6px 8px;font-size:.8rem} }
       @media (max-width:360px){ .brand{display:none} }
@@ -85,11 +88,11 @@
       .mascot{width:170px;height:170px;object-fit:contain;animation:floaty 4s ease-in-out infinite;filter:drop-shadow(0 10px 14px rgba(120,90,140,.15))}
       @media (max-width:640px){ .hero-grid{grid-template-columns:1fr;position:relative} .mascot{width:86px;height:86px;position:absolute;right:-4px;top:-14px} .hero h1{padding-right:84px} }
       .hero h1{font-size:clamp(1.7rem,6vw,2.6rem);line-height:1.35;margin:0 0 10px;font-weight:900;letter-spacing:.01em}
-      .hero h1 .hl{color:var(--coral);background:linear-gradient(transparent 62%,color-mix(in srgb,var(--coral) 22%,transparent) 62%);border-radius:4px;padding:0 2px}
+      .hero h1 .hl{color:var(--coral-ink);background:linear-gradient(transparent 62%,color-mix(in srgb,var(--coral) 22%,transparent) 62%);border-radius:4px;padding:0 2px}
       .hero p{margin:0;color:var(--ink2);font-size:1.02rem;max-width:34em}
       .hero-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
       .cta{min-height:50px;padding:10px 20px;border-radius:18px;font-weight:900;font-size:1rem;display:inline-flex;align-items:center;transition:transform .15s,background .2s,border-color .2s}
-      .cta.primary{background:var(--coral);color:#fff;box-shadow:0 8px 18px color-mix(in srgb,var(--coral) 30%,transparent)}
+      .cta.primary{background:var(--coral-ink);color:var(--on-accent);box-shadow:0 8px 18px color-mix(in srgb,var(--coral) 30%,transparent)}
       .cta.primary:hover{transform:translateY(-2px)}
       .cta.ghost{background:var(--surface);border:2px solid var(--line)}
       .cta.ghost:hover{border-color:var(--teal)}
@@ -104,8 +107,8 @@
       [tabindex="-1"]:focus{outline:none}
       .stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
       .stat{background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:10px 16px;display:flex;align-items:baseline;gap:8px;box-shadow:var(--shadow)}
-      .stat b{font-size:1.4rem;color:var(--coral)}
-      .stat:nth-child(2) b{color:var(--teal)}
+      .stat b{font-size:1.4rem;color:var(--coral-ink)}
+      .stat:nth-child(2) b{color:var(--teal-ink)}
       .stat span{color:var(--ink2);font-size:.9rem;font-weight:700}
 
       /* steps */
@@ -115,7 +118,7 @@
       .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
       .step{display:flex;gap:12px;background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:14px 16px;transition:transform .2s,box-shadow .2s}
       .step:hover{transform:translateY(-3px) rotate(-.4deg);box-shadow:var(--shadow-lg)}
-      .step .n{flex:none;width:34px;height:34px;border-radius:12px;color:#fff;font-weight:900;display:flex;align-items:center;justify-content:center;font-size:1rem;transform:rotate(-6deg);box-shadow:0 4px 10px rgba(0,0,0,.08)}
+      .step .n{flex:none;width:34px;height:34px;border-radius:12px;color:var(--on-accent);font-weight:900;display:flex;align-items:center;justify-content:center;font-size:1rem;transform:rotate(-6deg);box-shadow:0 4px 10px rgba(0,0,0,.08)}
       .step h3{margin:0 0 2px;font-size:1.02rem;font-weight:800}
       .step p{margin:0;color:var(--ink2);font-size:.88rem;line-height:1.6}
 
@@ -128,7 +131,7 @@
       .lv[aria-pressed="true"]{border-color:var(--teal);background:var(--teal-t);box-shadow:0 6px 14px color-mix(in srgb,var(--teal) 25%,transparent)}
       .lv .dot{width:10px;height:10px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 3px color-mix(in srgb,var(--teal) 25%,transparent)}
       .lv.soon .dot{background:var(--ink2);opacity:.45;box-shadow:none}
-      .lv-arrow{color:var(--coral);font-weight:900;font-size:.8rem;opacity:.7}
+      .lv-arrow{color:var(--coral-ink);font-weight:900;font-size:.8rem;opacity:.7}
       .soon-panel{margin-top:14px;background:var(--surface);border:2.5px dashed var(--line);border-radius:var(--radius);padding:26px 20px;text-align:center;color:var(--ink2)}
       .soon-panel img{width:92px;height:92px;object-fit:contain;margin:0 auto 8px;animation:floaty 4s ease-in-out infinite}
       .soon-panel .big{font-size:1.15rem;font-weight:900;color:var(--ink);margin-bottom:4px}
@@ -144,13 +147,13 @@
       .card-body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
       .card .kicker{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
       .chip{font-size:.76rem;font-weight:800;padding:3px 11px;border-radius:999px}
-      .chip.done{background:var(--teal-t);color:var(--teal)}
+      .chip.done{background:var(--teal-t);color:var(--teal-ink)}
       .card h3{margin:2px 0 0;font-size:1.3rem;line-height:1.4;font-weight:900}
       .card .zh{font-weight:800}
       .card p{margin:0;color:var(--ink2);font-size:.92rem}
       .card .meta{margin-top:auto;padding-top:8px;display:flex;flex-wrap:wrap;gap:6px 14px;color:var(--ink2);font-size:.84rem;font-weight:700}
       .card .go{margin-top:10px;min-height:48px;border-radius:16px;background:var(--ink);color:var(--bg);font-weight:900;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:transform .15s,background .2s}
-      .card .go:hover{background:var(--coral);color:#fff}
+      .card .go:hover{background:var(--coral-ink);color:var(--on-accent)}
       .card .go:active{transform:scale(.97)}
 
       /* modules */
@@ -182,7 +185,7 @@
       .progress-strip{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
       .reader-legend{margin-top:10px}
       .pstep{font-size:.84rem;font-weight:800;border:2px solid var(--line);color:var(--ink2);border-radius:999px;padding:5px 12px;background:var(--surface);transition:all .25s}
-      .pstep.on{border-color:var(--teal);color:var(--teal);background:var(--teal-t)}
+      .pstep.on{border-color:var(--teal);color:var(--teal-ink);background:var(--teal-t)}
       .passage{background:var(--surface);border:2px solid var(--line);border-radius:var(--radius);padding:24px 22px 14px;margin-top:14px;box-shadow:var(--shadow);
         background-image:repeating-linear-gradient(transparent 0 calc(2.35em - 1px), color-mix(in srgb,var(--blue) 9%,transparent) calc(2.35em - 1px) 2.35em);background-size:100% 2.35em}
       .passage p{font-size:1.22rem;line-height:2.35;margin:0 0 18px;letter-spacing:.02em}
@@ -205,36 +208,36 @@
       .panel .sub{color:var(--ink2);margin:0 0 14px;font-size:.92rem}
       .gitem{width:100%;text-align:left;display:flex;gap:12px;align-items:flex-start;padding:13px 14px;border-radius:16px;border:2px solid var(--line);margin-bottom:10px;min-height:52px;background:var(--surface);transition:transform .15s,border-color .2s,background .2s}
       .gitem:hover{border-color:var(--plum);background:var(--plum-t);transform:translateX(3px)}
-      .gitem .pat{font-weight:900;color:var(--plum);white-space:nowrap}
+      .gitem .pat{font-weight:900;color:var(--plum-ink);white-space:nowrap}
       .gitem .tt{font-weight:700}
-      .gitem .arr{margin-left:auto;color:var(--plum);font-weight:900}
+      .gitem .arr{margin-left:auto;color:var(--plum-ink);font-weight:900}
       .q{border-top:2px dashed var(--line);padding:16px 0 4px}
       .q:first-of-type{border-top:none}
       .q .qq{font-size:1.08rem;font-weight:800;margin:0 0 12px}
-      .q .qnum{color:#fff;background:var(--coral);font-weight:900;margin-right:10px;border-radius:10px;padding:1px 9px;font-size:.9rem;display:inline-block}
+      .q .qnum{color:var(--on-accent);background:var(--coral-ink);font-weight:900;margin-right:10px;border-radius:10px;padding:1px 9px;font-size:.9rem;display:inline-block}
       .opts{display:grid;gap:9px}
       .opt{min-height:50px;text-align:left;border:2px solid var(--line);border-radius:16px;padding:11px 15px;font-size:1.05rem;background:var(--surface);display:flex;align-items:center;gap:10px;width:100%;transition:transform .15s,border-color .2s,background .2s}
       .opt:not(:disabled):hover{border-color:var(--blue);background:var(--blue-t);transform:translateY(-1px)}
       .opt:not(:disabled):active{transform:scale(.98)}
       .opt .mk{flex:none;width:26px;height:26px;border-radius:50%;border:2px solid var(--line);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:.85rem}
       .opt.correct{border-color:var(--teal);background:var(--teal-t);animation:pop .3s ease}
-      .opt.correct .mk{background:var(--teal);border-color:var(--teal);color:#fff}
+      .opt.correct .mk{background:var(--teal-ink);border-color:var(--teal-ink);color:var(--on-accent)}
       .opt.wrong{border-color:var(--coral);background:var(--coral-t);animation:wiggle .35s ease}
-      .opt.wrong .mk{background:var(--coral);border-color:var(--coral);color:#fff}
+      .opt.wrong .mk{background:var(--coral-ink);border-color:var(--coral-ink);color:var(--on-accent)}
       .opt:disabled{cursor:default;opacity:1}
       .why{display:none;margin-top:11px;background:var(--surface2);border-radius:14px;padding:11px 14px;font-size:.94rem}
       .why.show{display:block;animation:pop .3s ease}
-      .why b{color:var(--teal)}
-      .why.no b{color:var(--coral)}
+      .why b{color:var(--teal-ink)}
+      .why.no b{color:var(--coral-ink)}
       .quiz-result{display:none;margin-top:16px;border-radius:18px;padding:18px 16px;text-align:center;font-weight:800;background:var(--teal-t);position:relative;overflow:hidden}
       .quiz-result.show{display:block;animation:pop .35s ease}
-      .quiz-result .score{font-size:1.7rem;display:block;color:var(--teal);font-weight:900}
+      .quiz-result .score{font-size:1.7rem;display:block;color:var(--teal-ink);font-weight:900}
       .quiz-result .res-mascot{width:96px;height:92px;object-fit:contain;margin:0 auto 4px;animation:floaty 3s ease-in-out infinite}
       .nextbtn{margin-top:16px;width:100%;min-height:52px;border-radius:18px;background:var(--ink);color:var(--bg);font-weight:900;font-size:1.02rem;transition:transform .15s,background .2s}
-      .nextbtn:hover{background:var(--coral);color:#fff}
+      .nextbtn:hover{background:var(--coral-ink);color:var(--on-accent)}
       .nextbtn:active{transform:scale(.98)}
       .retrybtn{margin-top:10px;width:100%;min-height:46px;border-radius:16px;border:2px solid var(--line);background:var(--surface);font-weight:800;color:var(--ink2);transition:border-color .2s}
-      .retrybtn:hover{border-color:var(--teal);color:var(--teal)}
+      .retrybtn:hover{border-color:var(--teal);color:var(--teal-ink)}
       .confetti{position:fixed;inset:0;pointer-events:none;z-index:90;overflow:hidden}
       .confetti i{position:absolute;top:-20px;width:10px;height:14px;border-radius:3px;animation:fall 1.6s ease-in forwards}
       @keyframes fall{to{transform:translateY(105vh) rotate(540deg);opacity:.9}}
@@ -247,7 +250,7 @@
       .book-item .m{font-weight:800;margin-top:1px}
       .book-item .e{color:var(--ink2);font-size:.9rem;margin-top:3px}
       .book-item .src{color:var(--ink2);font-size:.8rem;margin-top:5px}
-      .book-item .rm{margin-left:auto;flex:none;min-height:40px;min-width:40px;border-radius:12px;color:var(--coral);font-weight:800;font-size:.85rem;padding:6px 12px;border:2px solid var(--coral-t);transition:background .2s}
+      .book-item .rm{margin-left:auto;flex:none;min-height:40px;min-width:40px;border-radius:12px;color:var(--coral-ink);font-weight:800;font-size:.85rem;padding:6px 12px;border:2px solid var(--coral-t);transition:background .2s}
       .book-item .rm:hover{background:var(--coral-t)}
       .empty{background:var(--surface);border:2.5px dashed var(--line);border-radius:var(--radius);padding:30px 22px;text-align:center;color:var(--ink2)}
       .empty img{width:110px;height:110px;object-fit:contain;margin:0 auto 6px;animation:floaty 4s ease-in-out infinite}
@@ -261,25 +264,25 @@
       @keyframes up{from{transform:translateY(40px);opacity:.3}to{transform:none;opacity:1}}
       .sheet .grab{width:48px;height:6px;border-radius:99px;background:var(--line);margin:4px auto 14px}
       .sheet .kind{font-size:.78rem;font-weight:900;letter-spacing:.06em;padding:4px 12px;border-radius:999px;display:inline-block}
-      .kind.v{background:var(--blue-t);color:var(--blue)}
-      .kind.g{background:var(--plum-t);color:var(--plum)}
+      .kind.v{background:var(--blue-t);color:var(--blue-ink)}
+      .kind.g{background:var(--plum-t);color:var(--plum-ink)}
       .sheet h3{margin:10px 0 2px;font-size:1.8rem;line-height:1.45;font-weight:900}
       .sheet .pos{color:var(--ink2);font-weight:700;font-size:.9rem}
-      .sheet .mean{font-size:1.25rem;font-weight:900;margin-top:10px;color:var(--coral)}
+      .sheet .mean{font-size:1.25rem;font-weight:900;margin-top:10px;color:var(--coral-ink)}
       .sheet .lbl{font-size:.8rem;font-weight:900;color:var(--ink2);margin:18px 0 4px;letter-spacing:.05em}
-      .sheet .lbl::before{content:"● ";color:var(--teal)}
+      .sheet .lbl::before{content:"● ";color:var(--teal-ink)}
       .sheet .ex{font-size:1.08rem;line-height:1.9}
       .sheet .exzh{color:var(--ink2);font-size:.94rem}
       .sheet .body{font-size:1rem;line-height:1.8;margin-top:8px}
-      .saved-note{margin-top:18px;display:flex;gap:9px;align-items:center;background:var(--teal-t);color:var(--teal);font-weight:800;border-radius:14px;padding:11px 14px;font-size:.94rem}
+      .saved-note{margin-top:18px;display:flex;gap:9px;align-items:center;background:var(--teal-t);color:var(--teal-ink);font-weight:800;border-radius:14px;padding:11px 14px;font-size:.94rem}
       .sheet .closebtn{margin-top:16px;width:100%;min-height:50px;border-radius:16px;background:var(--ink);color:var(--bg);font-weight:900;transition:background .2s}
-      .sheet .closebtn:hover{background:var(--coral);color:#fff}
+      .sheet .closebtn:hover{background:var(--coral-ink);color:var(--on-accent)}
       .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(22px + env(safe-area-inset-bottom));z-index:80;background:var(--ink);color:var(--bg);font-weight:800;padding:12px 22px;border-radius:999px;box-shadow:var(--shadow-lg);font-size:.95rem;max-width:92vw;text-align:center;animation:toastIn .3s cubic-bezier(.3,1.4,.5,1)}
       @keyframes toastIn{from{transform:translate(-50%,20px);opacity:0}to{transform:translate(-50%,0);opacity:1}}
       /* gojuon */
       .scriptseg{display:inline-flex;border:2px solid var(--line);border-radius:999px;overflow:hidden;background:var(--surface);padding:3px;gap:2px}
       .scriptseg button{min-height:42px;padding:6px 16px;font-weight:800;font-size:.95rem;border-radius:999px;transition:background .2s}
-      .scriptseg button[aria-pressed="true"]{background:var(--blue);color:#fff}
+      .scriptseg button[aria-pressed="true"]{background:var(--blue-ink);color:var(--on-accent)}
       .krow{display:grid;grid-template-columns:30px repeat(5,1fr);gap:7px;margin-bottom:7px}
       .krow.y3{grid-template-columns:30px repeat(3,1fr)}
       .krow .rl{display:flex;align-items:center;justify-content:center;color:var(--ink2);font-weight:800;font-size:.85rem}
@@ -290,17 +293,17 @@
       .kcell.empty{background:transparent;border:none;min-height:0}
       .kcell:active{background:var(--blue-t);transform:scale(.95)}
       .kcell.sel{border-color:var(--coral);background:var(--coral-t)}
-      .kcell.sel .k{color:var(--coral)}
-      .kcell.sel .r{color:var(--coral)}
+      .kcell.sel .k{color:var(--coral-ink)}
+      .kcell.sel .r{color:var(--coral-ink)}
       .krow:nth-child(odd) .kcell:not(.empty):not(.sel){background:color-mix(in srgb,var(--surface2) 45%,var(--surface))}
       /* kana flashcard */
       .fcard{background:linear-gradient(160deg,var(--coral-t),var(--blue-t));border:2px solid var(--line);border-radius:22px;padding:16px 14px 14px;text-align:center;margin-bottom:16px}
       .fcard-art{height:110px;display:flex;align-items:center;justify-content:center}
       .fcard-art svg{width:108px;height:108px;background:#fff;border-radius:50%;padding:6px;box-shadow:0 6px 16px rgba(120,90,140,.12);animation:floaty 4s ease-in-out infinite}
       .fcard-art svg *{stroke:#5B4B63;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-      .fcard-kana{font-size:3.4rem;font-weight:900;color:var(--coral);line-height:1}
+      .fcard-kana{font-size:3.4rem;font-weight:900;color:var(--coral-ink);line-height:1}
       .fcard-word{font-size:2rem;font-weight:900;line-height:1.35;margin-top:6px;letter-spacing:.03em;overflow-wrap:anywhere}
-      .fcard-word .tgt{color:var(--coral)}
+      .fcard-word .tgt{color:var(--coral-ink)}
       .fcard-ro{color:var(--ink2);font-weight:800;margin-top:2px}
       .fcard-mean{font-weight:800;margin-top:2px}
       .gj-qh{font-size:1.05rem;margin:20px 0 2px}
@@ -312,9 +315,9 @@
       .gj-done p{margin:0 auto;color:var(--ink2);max-width:32em}
       footer{margin-top:48px;color:var(--ink2);font-size:.86rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
       footer img{width:48px;height:40px;object-fit:contain}
-      @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+      @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
       /* Ko-fi sponsor */
-      .kofi{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:6px 14px 6px 11px;border-radius:999px;background:#FFF0E8;border:2px solid #FFD2C2;color:#C9573F;font-weight:800;font-size:.88rem;text-decoration:none;white-space:nowrap;transition:transform .15s,background .2s,box-shadow .2s}
+      .kofi{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:6px 14px 6px 11px;border-radius:999px;background:#FFF0E8;border:2px solid #FFD2C2;color:#A8402B;font-weight:800;font-size:.88rem;text-decoration:none;white-space:nowrap;transition:transform .15s,background .2s,box-shadow .2s}
       .kofi .cup{font-size:1.05rem;line-height:1;display:inline-block}
       .kofi:hover{background:#FFE3D6;transform:translateY(-1px);box-shadow:0 6px 14px rgba(238,120,90,.18)}
       .kofi:hover .cup{animation:wiggle .5s ease}
@@ -325,7 +328,7 @@
       @media (max-width:430px){ .kofi{width:36px;height:36px;min-height:36px} .kofi .cup{font-size:.98rem} .topbar .brand{display:none} .tabs .tab{padding:7px 10px;font-size:.82rem} .langseg button{padding:6px 7px} }
       .tabs .tab{flex:none}
       @media (max-width:340px){ .topbar-in{gap:4px;padding:10px 8px} .tabs{gap:4px} .tabs .tab{padding:6px 7px;font-size:.76rem;gap:3px} .tab .badge{min-width:18px;height:18px;padding:0 4px} .langseg button{padding:6px 5px;font-size:.76rem} .kofi{width:32px;height:32px;min-height:32px} }
-      .kofi-foot{display:inline-flex;align-items:center;gap:6px;margin-top:2px;padding:7px 16px;border-radius:999px;background:#FFF0E8;border:2px dashed #FFD2C2;color:#C9573F;font-weight:800;text-decoration:none;transition:transform .15s,background .2s}
+      .kofi-foot{display:inline-flex;align-items:center;gap:6px;margin-top:2px;padding:7px 16px;border-radius:999px;background:#FFF0E8;border:2px dashed #FFD2C2;color:#A8402B;font-weight:800;text-decoration:none;transition:transform .15s,background .2s}
       .kofi-foot:hover{background:#FFE3D6;transform:translateY(-1px)}
       @media (prefers-color-scheme: dark){.kofi-foot{background:#4A3229;border-color:#6B4536;color:#FFC2AE}}
     </style>
@@ -335,10 +338,10 @@
     <div class="topbar">
       <div class="topbar-in">
         <button class="brand" id="brand" aria-label="讀日文小工程"><img src="assets/mascot-128.webp" alt="" width="38" height="30"><span id="brand-name">讀日文小工程</span></button>
-        <div class="tabs" role="tablist">
-          <button class="tab" id="tab-home" role="tab" aria-selected="true"></button>
-          <button class="tab" id="tab-book" role="tab" aria-selected="false"></button>
-        </div>
+        <nav class="tabs" aria-label="Main">
+          <button class="tab" id="tab-home" aria-current="page"></button>
+          <button class="tab" id="tab-book"></button>
+        </nav>
         <a class="kofi" id="kofi" href="https://ko-fi.com/kanjicoffee" target="_blank" rel="noopener" aria-label="贊助支持（在新分頁開啟 Ko-fi）" title="贊助支持（Ko-fi）"><span class="cup" aria-hidden="true">☕</span><span class="lbl" id="kofi-lbl">贊助支持</span></a>
         <div class="langseg" role="group" aria-label="Language">
           <button id="lang-zh" aria-pressed="true">繁中</button>
@@ -354,7 +357,7 @@
       <footer id="foot"></footer>
     </div>
     <div id="sheet-root"></div>
-    <div id="toast-root"></div>
+    <div id="toast-root" role="status" aria-live="polite"></div>
 
     <script>
     /* ============ i18n: UI strings ============ */
@@ -367,12 +370,12 @@
         statDone:"篇已完成", statWords:"個生詞在單字本",
         stepsTitle:"一篇文章，六個步驟", stepsSub:"每篇都照這個節奏走，讀完就是真的讀懂。",
         steps:[
-          ["讀短文","熊本日常生活的原創短文，長度照級別控制。","var(--coral)"],
-          ["ふりがな開關","漢字注音預設開啟，覺得太簡單就自己關掉。","var(--blue)"],
-          ["點單字查解釋","點文中藍色虛線的單字，看意思、讀音和例句。","var(--orange)"],
-          ["文法亮點","紫色標亮的是本篇重點文法，點了看白話說明。","var(--plum)"],
-          ["理解測驗","三題選擇題，答完馬上對答案、看解說。","var(--teal)"],
-          ["自動收進單字本","查過的單字自動收藏，之後隨時回來複習。","var(--coral)"]
+          ["讀短文","熊本日常生活的原創短文，長度照級別控制。","var(--coral-ink)"],
+          ["ふりがな開關","漢字注音預設開啟，覺得太簡單就自己關掉。","var(--blue-ink)"],
+          ["點單字查解釋","點文中藍色虛線的單字，看意思、讀音和例句。","var(--orange-ink)"],
+          ["文法亮點","紫色標亮的是本篇重點文法，點了看白話說明。","var(--plum-ink)"],
+          ["理解測驗","三題選擇題，答完馬上對答案、看解說。","var(--teal-ink)"],
+          ["自動收進單字本","查過的單字自動收藏，之後隨時回來複習。","var(--coral-ink)"]
         ],
         levelsTitle:"升級路線", levelsSub:"入門五十音 ▶ 初級 ▶ N5 ▶ N4 ▶ N3 ▶ N2 ▶ N1，一級一級往上。先學五十音，再讀 N5 試作三篇。",
         soon:"準備中", live:"已開放", articlesUnit:"篇",
@@ -381,9 +384,9 @@
         metaChars:"字", metaGrammar:"個文法點", metaQuiz:"題測驗", metaMin:"分鐘",
         modsTitle:"之後會長出來的模組", modsSub:"架構先留好位置，這一版還沒開放。",
         mods:[
-          ["文法加強","把文章裡的文法點抽出來做專項練習，再連回去看上下文。","var(--plum-t)","var(--plum)"],
-          ["單字加強","用間隔複習幫你記住單字本裡的詞：今天查的，明天、三天後、七天後再考你。","var(--blue-t)","var(--blue)"],
-          ["考前複習","照 JLPT 讀解的格式出限時測驗，考前集中衝刺。","var(--orange-t)","var(--orange)"]
+          ["文法加強","把文章裡的文法點抽出來做專項練習，再連回去看上下文。","var(--plum-t)","var(--plum-ink)"],
+          ["單字加強","用間隔複習幫你記住單字本裡的詞：今天查的，明天、三天後、七天後再考你。","var(--blue-t)","var(--blue-ink)"],
+          ["考前複習","照 JLPT 讀解的格式出限時測驗，考前集中衝刺。","var(--orange-t)","var(--orange-ink)"]
         ],
         foot:"讀日文小工程 · Phase 0 試作版（N5 三篇）· 文章為原創內容",
         back:"← 回清單",
@@ -422,7 +425,7 @@
         hintDaku:"先寫清音「{b}」，最後在右上角補上濁點「゛」（兩畫）。",
         hintHandaku:"先寫清音「{b}」，最後在右上角補上半濁點「゜」（一畫）。",
         hintYoon:"先寫「{a}」，再在右下方寫小一號的「{s}」，兩個合起來唸一個音。",
-        kanaWhy:"「{k}」的羅馬拼音是 {r}。",
+        kanaWhy:"「{k}」的羅馬拼音是 {r}。", kanaWo:"發音跟「お」一樣唸 o，只是打字要輸入 wo。",
         retryQuiz:"重做測驗", brand:"讀日文小工程", pageTitle:"讀日文小工程",
         kofi:"贊助支持", kofiAria:"贊助支持（在新分頁開啟 Ko-fi）", kofiFoot:"喜歡的話，請我喝杯咖啡", colon:"：",
         listen:"聽發音", noVoice:"這台裝置沒有日文語音，暫時無法播放發音。", skip:"跳到主要內容", furiAria:"ふりがな 注音"
@@ -435,12 +438,12 @@
         statDone:"articles finished", statWords:"words in your wordbook",
         stepsTitle:"One article, six steps", stepsSub:"Every article follows this rhythm. Finish it, and you truly understood it.",
         steps:[
-          ["Read the passage","Original short stories about daily life in Kumamoto, sized by level.","var(--coral)"],
-          ["Furigana switch","Readings over kanji are on by default. Turn them off when you feel ready.","var(--blue)"],
-          ["Tap a word","Tap any word with a blue dotted line to see its meaning, reading and an example.","var(--orange)"],
-          ["Grammar highlights","Words lit in purple are this article's key grammar. Tap for a plain explanation.","var(--plum)"],
-          ["Comprehension quiz","Three questions. You get the answer and an explanation right away.","var(--teal)"],
-          ["Auto-saved wordbook","Every word you look up is collected for you to review later.","var(--coral)"]
+          ["Read the passage","Original short stories about daily life in Kumamoto, sized by level.","var(--coral-ink)"],
+          ["Furigana switch","Readings over kanji are on by default. Turn them off when you feel ready.","var(--blue-ink)"],
+          ["Tap a word","Tap any word with a blue dotted line to see its meaning, reading and an example.","var(--orange-ink)"],
+          ["Grammar highlights","Words lit in purple are this article's key grammar. Tap for a plain explanation.","var(--plum-ink)"],
+          ["Comprehension quiz","Three questions. You get the answer and an explanation right away.","var(--teal-ink)"],
+          ["Auto-saved wordbook","Every word you look up is collected for you to review later.","var(--coral-ink)"]
         ],
         levelsTitle:"The road up", levelsSub:"Intro Kana ▶ Beginner ▶ N5 ▶ N4 ▶ N3 ▶ N2 ▶ N1, one level at a time. Learn the kana first, then read the three N5 pilot articles.",
         soon:"Coming soon", live:"Open", articlesUnit:"articles",
@@ -449,9 +452,9 @@
         metaChars:"characters", metaGrammar:"grammar points", metaQuiz:"quiz questions", metaMin:"min",
         modsTitle:"Modules coming later", modsSub:"Their places are reserved in the design. Not open in this version yet.",
         mods:[
-          ["Grammar Boost","Pull the grammar points out of the articles for focused practice, then jump back to the context.","var(--plum-t)","var(--plum)"],
-          ["Vocab Boost","Spaced review for your wordbook: today's words come back tomorrow, in 3 days, in 7 days.","var(--blue-t)","var(--blue)"],
-          ["Exam Prep","Timed quizzes in real JLPT reading format, for a final push before the test.","var(--orange-t)","var(--orange)"]
+          ["Grammar Boost","Pull the grammar points out of the articles for focused practice, then jump back to the context.","var(--plum-t)","var(--plum-ink)"],
+          ["Vocab Boost","Spaced review for your wordbook: today's words come back tomorrow, in 3 days, in 7 days.","var(--blue-t)","var(--blue-ink)"],
+          ["Exam Prep","Timed quizzes in real JLPT reading format, for a final push before the test.","var(--orange-t)","var(--orange-ink)"]
         ],
         foot:"Reading Japanese Project · Phase 0 pilot (3 N5 articles) · All passages are original",
         back:"← Back to list",
@@ -490,7 +493,7 @@
         hintDaku:"Write the basic kana {b} first, then add the dakuten marks (゛, two strokes) at the upper right.",
         hintHandaku:"Write the basic kana {b} first, then add the small circle (゜, one stroke) at the upper right.",
         hintYoon:"Write {a} first, then a small {s} at the lower right — together they make one sound.",
-        kanaWhy:"{k} is read '{r}'.",
+        kanaWhy:"{k} is read '{r}'.", kanaWo:"It sounds exactly like お (o); you type it as wo.",
         retryQuiz:"Retake the quiz", brand:"Reading Japanese", pageTitle:"Reading Japanese",
         kofi:"Support", kofiAria:"Support this project (opens Ko-fi in a new tab)", kofiFoot:"Enjoying it? Buy me a coffee", colon:": ",
         listen:"Listen", noVoice:"This device has no Japanese voice installed, so pronunciation can't be played.", skip:"Skip to main content", furiAria:"Furigana"
@@ -528,7 +531,7 @@
     ];
     var ARTICLES = [
       {
-        id:"conbini", img:"assets/conbini.webp", accent:"var(--coral)", accentT:"var(--coral-t)",
+        id:"conbini", img:"assets/conbini.webp", accent:"var(--coral-ink)", accentT:"var(--coral-t)",
         titleJp:"コンビニで 買い物", t_zh:"在便利商店買東西", t_en:"Shopping at the Convenience Store",
         theme_zh:"熊本日常 · 買東西", theme_en:"Kumamoto life · Shopping",
         intro_zh:"每天早上去車站附近的便利商店買早餐——最日常的場景，藏著五個 N5 必學文法。",
@@ -564,7 +567,7 @@
         ]
       },
       {
-        id:"densha", img:"assets/densha.webp", accent:"var(--blue)", accentT:"var(--blue-t)",
+        id:"densha", img:"assets/densha.webp", accent:"var(--blue-ink)", accentT:"var(--blue-t)",
         titleJp:"電車に 乗ります", t_zh:"搭電車去朋友家", t_en:"Riding the Train",
         theme_zh:"熊本日常 · 交通", theme_en:"Kumamoto life · Transport",
         intro_zh:"每週六搭電車去朋友家。電車誤點了，朋友卻笑著說「大丈夫だよ」——這篇學「持續狀態」的て形。",
@@ -603,7 +606,7 @@
         ]
       },
       {
-        id:"super", img:"assets/super.webp", accent:"var(--orange)", accentT:"var(--orange-t)",
+        id:"super", img:"assets/super.webp", accent:"var(--orange-ink)", accentT:"var(--orange-t)",
         titleJp:"スーパーで 買い物", t_zh:"跟媽媽去超市買菜", t_en:"Grocery Shopping with Mom",
         theme_zh:"熊本日常 · 超市", theme_en:"Kumamoto life · Supermarket",
         intro_zh:"為了明天的咖哩，跟媽媽去超市買馬鈴薯、紅蘿蔔、洋蔥，還有番茄。這篇學「因為〜から」和形容詞的連接。",
@@ -644,18 +647,26 @@
     </script>
     <script>
     /* ============ App logic ============ */
-    function load(k, d){ try{ var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } }
+    function load(k, d){
+      try{
+        var v = localStorage.getItem(k); if(!v) return d;
+        v = JSON.parse(v);
+        var ok = Array.isArray(d) ? Array.isArray(v) : (v !== null && typeof v === typeof d && Array.isArray(v) === false);
+        return ok ? v : d;
+      }catch(e){ return d; }
+    }
     function save(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
     var lang = load("drw_lang", "zh"); if(lang !== "en") lang = "zh";
-    var wordbook = load("drw_book", []);
+    var wordbook = load("drw_book", []).filter(function(e){ return e && typeof e === "object" && e.vid && e.w; });
     var progress = load("drw_progress", {});
     var furiOn = load("drw_furi", true);
     var view = "home", selLevel = "n5", curArticle = null;
     var looked = {}, viewedG = {}, quizAns = {};
     var saved = load("drw_state", {});
     ARTICLES.forEach(function(a){
-      var st = saved[a.id] || {};
-      looked[a.id] = st.looked || {}; viewedG[a.id] = st.viewedG || {}; quizAns[a.id] = st.quizAns || {};
+      var st = saved[a.id] && typeof saved[a.id] === "object" ? saved[a.id] : {};
+      function obj(x){ return x && typeof x === "object" && !Array.isArray(x) ? x : {}; }
+      looked[a.id] = obj(st.looked); viewedG[a.id] = obj(st.viewedG); quizAns[a.id] = obj(st.quizAns);
       a.chars = a.paragraphs.reduce(function(n, p){ return n + p.reduce(function(m, t){ return m + t.s.replace(/\s/g, "").length; }, 0); }, 0);
     });
     function saveState(){
@@ -670,8 +681,8 @@
     function posText(p){ if(lang === "en"){ var i = p.indexOf(" "); if(i > 0) return p.slice(i + 1); } return p; }
 
     /* ---------- Furigana: put readings on the kanji only, not on the okurigana ---------- */
-    var KANJI = /[㐀-鿿豈-﫿々〆]/;
-    function isPlainKana(c){ return /[぀-ゟ゠-ヿ\s、。「」（）・ー]/.test(c); }
+    var KANJI = /[\u3400-\u9fff\uf900-\ufaff々〆]/;
+    function isPlainKana(c){ return /[\u3040-\u309f\u30a0-\u30ff\s、。「」（）・ー]/.test(c); }
     function toHira(str){ return str.replace(/[ァ-ヶ]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0x60); }); }
     function rubyRaw(w, r){ return "<ruby>" + esc(w) + "<rt>" + esc(r) + "</rt></ruby>"; }
     function ruby(w, r){
@@ -758,10 +769,12 @@
       document.getElementById("view-reader").hidden = v !== "reader";
       document.getElementById("view-gojuon").hidden = v !== "gojuon";
       document.getElementById("view-book").hidden = v !== "book";
-      document.getElementById("tab-home").setAttribute("aria-selected", v !== "book" ? "true" : "false");
-      document.getElementById("tab-book").setAttribute("aria-selected", v === "book" ? "true" : "false");
       var hash = v === "reader" && curArticle ? "#read-" + curArticle.id : (v === "home" ? "" : "#" + v);
-      if(location.hash !== hash){ try{ history.replaceState(null, "", hash || location.pathname + location.search); }catch(e){} }
+      if(location.hash !== hash){
+        try{ history[routing ? "replaceState" : "pushState"](null, "", hash || location.pathname + location.search); }catch(e){}
+      }
+      document.getElementById("tab-home").removeAttribute("aria-current"); document.getElementById("tab-book").removeAttribute("aria-current");
+      document.getElementById(v === "book" ? "tab-book" : "tab-home").setAttribute("aria-current", "page");
       window.scrollTo(0,0);
     }
     function renderTabs(){
@@ -897,7 +910,7 @@
       var answered = Object.keys(quizAns[a.id]).length;
       if(answered === a.quiz.length){
         var score = a.quiz.reduce(function(n, q, qi){ return n + (quizAns[a.id][qi] === q.ans ? 1 : 0); }, 0);
-        var msg = score === 3 ? s.resultPerfect : (score >= 2 ? s.resultGood.replace("{n}", score) : s.resultLow.replace("{n}", score));
+        var msg = score === a.quiz.length ? s.resultPerfect : (score >= 2 ? s.resultGood.replace("{n}", score) : s.resultLow.replace("{n}", score));
         h += '<div class="quiz-result show" id="quiz-result" tabindex="-1">' + (score === a.quiz.length ? '<img class="res-mascot" src="assets/mascot-party.webp" alt="">' : "") + '<span class="score">' + score + " / " + a.quiz.length + "</span>" + esc(msg) + "</div>";
         var idx = ARTICLES.indexOf(a);
         if(idx < ARTICLES.length - 1) h += '<button class="nextbtn" id="rd-next">' + esc(s.nextArticle) + "</button>";
@@ -969,10 +982,14 @@
 
     /* ---------- Sheet ---------- */
     var sheetReturnFocus = null;
+    function setInert(on){
+      Array.prototype.forEach.call(document.querySelectorAll(".topbar, .wrap, .skip"), function(el){ if(on) el.setAttribute("inert", ""); else el.removeAttribute("inert"); });
+    }
     function closeSheet(){
       var had = document.getElementById("sheet-root").innerHTML !== "";
       document.getElementById("sheet-root").innerHTML = ""; document.removeEventListener("keydown", sheetKey);
       document.body.classList.remove("sheet-open");
+      setInert(false);
       if(had && sheetReturnFocus && document.body.contains(sheetReturnFocus)) { try{ sheetReturnFocus.focus({preventScroll:true}); }catch(e){} }
       sheetReturnFocus = null;
     }
@@ -996,6 +1013,7 @@
       document.removeEventListener("keydown", sheetKey);
       document.addEventListener("keydown", sheetKey);
       document.body.classList.add("sheet-open");
+      setInert(true);
       if(!sheetReturnFocus) sheetReturnFocus = document.activeElement;
       try{ document.getElementById("sheet-close").focus({preventScroll:true}); }catch(e){}
       var sh = document.querySelector("#sheet-root .sheet"); if(sh) sh.scrollTop = 0;
@@ -1003,9 +1021,9 @@
     var toastTimer = null;
     function toast(msg){
       var r = document.getElementById("toast-root");
-      r.innerHTML = '<div class="toast" role="status">' + esc(msg) + "</div>";
+      r.innerHTML = '<div class="toast">' + esc(msg) + "</div>";
       clearTimeout(toastTimer);
-      toastTimer = setTimeout(function(){ r.innerHTML = ""; }, 2200);
+      toastTimer = setTimeout(function(){ r.innerHTML = ""; }, 3200);
     }
     function confetti(){
       if(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -1065,7 +1083,7 @@
         h += '<p class="sec-sub" style="margin-top:14px">' + esc(s.bookCount.replace("{n}", wordbook.length)) + "</p>";
         wordbook.forEach(function(e){
           var a = artById(e.aid);
-          h += '<div class="book-item"><div><div class="w jp">' + ruby(e.w, e.r) + '</div><div class="pos" style="color:var(--ink2);font-size:.82rem;font-weight:700">' + esc(posText(e.pos)) + '</div><div class="m">' + esc(lang === "zh" ? e.zh : e.en) + '</div><div class="e"><span class="jp">' + furify(e.exJp) + "</span> — " + esc(lang === "zh" ? e.ex_zh : e.ex_en) + '</div><div class="src">' + esc(s.from) + esc(a ? pick(a,"t") : "") + '</div></div><button class="rm" data-rm="' + e.vid + '">' + esc(s.remove) + "</button></div>";
+          h += '<div class="book-item"><div><div class="w jp">' + ruby(e.w, e.r) + '</div><div class="pos" style="color:var(--ink2);font-size:.82rem;font-weight:700">' + esc(posText(e.pos)) + '</div><div class="m">' + esc(lang === "zh" ? e.zh : e.en) + '</div><div class="e"><span class="jp">' + furify(e.exJp) + "</span> — " + esc(lang === "zh" ? e.ex_zh : e.ex_en) + '</div><div class="src">' + esc(s.from) + esc(a ? pick(a,"t") : "") + '</div></div><button class="rm" data-rm="' + esc(e.vid) + '">' + esc(s.remove) + "</button></div>";
         });
       }
       document.getElementById("view-book").innerHTML = h;
@@ -1103,15 +1121,23 @@
     // mark every Japanese element as Japanese, so screen readers and fonts treat it correctly
     function markJa(){ Array.prototype.forEach.call(document.querySelectorAll(".jp:not([lang])"), function(el){ el.setAttribute("lang", "ja"); }); }
     if("MutationObserver" in window) new MutationObserver(markJa).observe(document.body, {childList:true, subtree:true});
+    var routing = false;
     function route(){
+      routing = true;
+      try{ routeInner(); } finally { routing = false; }
+    }
+    function routeInner(){
       var h = location.hash.replace("#", "");
       if(h.indexOf("read-") === 0 && artById(h.slice(5))){ openArticle(h.slice(5)); return; }
       if(h === "book"){ renderBook(); showView("book"); return; }
       if(h === "gojuon"){ openGojuon(); return; }
       renderHome(); showView("home");
     }
-    setFuri(furiOn); renderTabs(); syncTopH();
-    window.addEventListener("hashchange", function(){ closeSheet(); route(); });
+    window.addEventListener("popstate", function(){ closeSheet(); route(); });
+    // skip link: move focus without touching the URL (a #content hash would otherwise be routed)
+    document.getElementById("skip").addEventListener("click", function(e){
+      e.preventDefault(); var c = document.getElementById("content"); try{ c.focus(); }catch(err){} c.scrollIntoView();
+    });
     if("serviceWorker" in navigator && location.protocol !== "file:") window.addEventListener("load", function(){ navigator.serviceWorker.register("sw.js").catch(function(){}); });
     </script>
     <script>
@@ -1119,46 +1145,46 @@
     /* basic entry: [hiragana, katakana, romaji, strokesH, strokesK, hintH_zh, hintH_en, hintK_zh, hintK_en, exH_word, exH_zh, exH_en, exK_word, exK_zh, exK_en] */
     var KANA_SEION = [
       [
-        ["あ","ア","a",3,2,"先寫橫畫，右側彎鉤往下，最後補左下的小圈","Top bar first, then the curving hook on the right, then the little loop at the lower left.","先寫斜撇帶橫，再寫彎鉤","Sweeping top stroke first, then the curving hook.","あめ","雨","rain","アイス","冰淇淋","ice cream"],
+        ["あ","ア","a",3,2,"先寫橫畫，再寫穿過橫畫往下的縱畫，最後寫包住下半部的大圈","Cross bar, then the vertical stroke through it, then the big loop around the lower half.","先寫橫折（像フ），再從中間往左下撇","The top bar that turns down (like フ), then the sweep from the middle down to the left.","あめ","雨","rain","アイス","冰淇淋","ice cream"],
         ["い","イ","i",2,2,"左邊長畫先寫，右邊短畫後寫，兩畫都微微彎","Long left stroke first, short right stroke second; both curve slightly.","先寫左邊的斜撇，再寫右邊的直畫","Diagonal sweep on the left, then the vertical on the right.","いぬ","狗","dog","イチゴ","草莓","strawberry"],
-        ["う","ウ","u",2,3,"先點上方的短點，再寫下面的彎角","A short dot on top, then the angled shape below.","先點上方短點，再寫橫畫，最後直鉤","Dot on top, cross bar, then the vertical hook.","うみ","海","sea","ウサギ","兔子","rabbit"],
+        ["う","ウ","u",2,3,"先點上方的短點，再寫下面的彎角","A short dot on top, then the angled shape below.","先點上方短點，再寫左邊的短直，最後寫橫折往下撇","Dot on top, short vertical on the left, then the bar that turns and sweeps down.","うみ","海","sea","ウサギ","兔子","rabbit"],
         ["え","エ","e",2,3,"先寫上方短橫，接著一筆彎折到底","Short top stroke, then one zig-zag stroke to the bottom.","上橫、直畫、下橫，由上往下寫","Top bar, vertical, bottom bar — top to bottom.","えき","車站","station","エアコン","冷氣機","air conditioner"],
-        ["お","オ","o",3,3,"先寫橫畫，再寫右邊的彎鉤，最後在左邊補一小撇","Cross stroke, then the big hook on the right, then a small flick on the left.","先寫橫畫，再寫直彎，最後補左邊的斜撇","Cross bar, vertical curve, then the diagonal on the left.","おかね","錢","money","オレンジ","柳橙","orange"]
+        ["お","オ","o",3,3,"先寫橫畫，再寫穿過橫畫往下、最後繞彎的縱畫，最後補右上的小點","Cross bar, then the vertical that curls at the bottom, then the small dot at the upper right.","先寫橫畫，再寫直彎，最後補左邊的斜撇","Cross bar, vertical curve, then the diagonal on the left.","おかね","錢","money","オレンジ","柳橙","orange"]
       ],
       [
-        ["か","カ","ka",3,2,"先寫左邊的直彎，再補橫畫，最後寫左上的斜撇","Left vertical curve first, then the cross bar, then the small diagonal at the upper left.","先寫橫帶直鉤，再補左上的斜撇","Cross-and-hook first, then the diagonal at the upper left.","かぜ","風","wind","カメラ","相機","camera"],
+        ["か","カ","ka",3,2,"先寫橫畫轉往下帶鉤的一筆，再寫左邊的斜畫，最後補右邊的短點","The bar that turns down into a hook, then the diagonal on the left, then the short stroke on the right.","先寫橫帶直鉤，再補左上的斜撇","Cross-and-hook first, then the diagonal at the upper left.","かぜ","風","wind","カメラ","相機","camera"],
         ["き","キ","ki",4,3,"兩條橫畫先寫，再寫直彎鉤，最後補下面的弧線","Two horizontal bars, then the vertical hook, then the curved bottom.","兩條橫畫先寫，最後直畫往下","Two horizontal bars, then the long vertical.","き","樹木","tree","キリン","長頸鹿","giraffe"],
         ["く","ク","ku",1,2,"一筆完成：往左下，再折向右下，像一個小箭頭","One stroke: down-left, then angle down-right, like a little arrow.","先寫斜撇，再寫彎角","Diagonal sweep, then the corner stroke.","くも","雲","cloud","クマ","熊","bear"],
         ["け","ケ","ke",3,3,"先寫左邊的直畫，再寫橫畫，最後右邊的彎鉤","Left vertical, then the cross bar, then the hook on the right.","先寫斜撇，再寫橫畫，最後直鉤","Diagonal, cross bar, then the vertical hook.","けさ","今天早上","this morning","ケーキ","蛋糕","cake"],
-        ["こ","コ","ko",2,2,"先寫上面的橫畫，再寫下面的彎角","Top horizontal first, then the corner shape below.","先寫橫畫，再寫彎角往下","Top bar, then the corner going down.","ここ","這裡","here","コーヒー","咖啡","coffee"]
+        ["こ","コ","ko",2,2,"先寫上面的橫畫，再寫下面的彎角","Top horizontal first, then the corner shape below.","先寫上橫轉往下的一筆，再寫下橫","The top bar that turns down, then the bottom bar.","ここ","這裡","here","コーヒー","咖啡","coffee"]
       ],
       [
         ["さ","サ","sa",3,3,"先寫橫畫，再寫直彎，最後補左下的弧線","Cross bar, vertical curve, then the arc at the lower left.","先寫橫畫，再補左邊的短直，最後彎鉤","Cross bar, short stroke on the left, then the hook.","さくら","櫻花","cherry blossom","サッカー","足球","soccer"],
-        ["し","シ","shi",1,3,"一筆由上往下彎，像一根小鉤子","One stroke curving down like a little hook.","兩小點先寫（由下往上），最後寫長彎畫","Two small strokes first, then the long sweeping curve.","すし","壽司","sushi","シャツ","襯衫","shirt"],
-        ["す","ス","su",2,2,"先寫橫畫帶直下，再補中間的小圈","A cross stroke going down, then the small loop in the middle.","先寫橫帶彎，再寫左邊的斜撇","Cross-and-curve first, then the sweep on the left.","すいか","西瓜","watermelon","スプーン","湯匙","spoon"],
+        ["し","シ","shi",1,3,"一筆由上往下彎，像一根小鉤子","One stroke curving down like a little hook.","兩小點由上往下寫，最後一筆從左下往右上挑","Two short strokes, top one first, then the long stroke rising from the lower left.","すし","壽司","sushi","シール","貼紙","sticker"],
+        ["す","ス","su",2,2,"先寫橫畫，再寫直畫往下、中間繞一圈再往左下收","Cross bar, then the vertical that loops in the middle and sweeps down to the left.","先寫橫帶彎，再寫左邊的斜撇","Cross-and-curve first, then the sweep on the left.","すいか","西瓜","watermelon","スプーン","湯匙","spoon"],
         ["せ","セ","se",3,2,"先寫橫畫，再寫右邊的直鉤，最後補左邊的短直","Cross bar, right vertical hook, then the short stroke on the left.","先寫橫帶鉤，再寫彎角","Cross-and-hook, then the corner stroke.","せんせい","老師","teacher","セーター","毛衣","sweater"],
-        ["そ","ソ","so",2,2,"先寫上方的小折，再一筆彎到底","Short zig-zag on top, then one long curving stroke.","先寫左上的短點，再寫彎鉤","Short stroke at the upper left, then the curving hook.","そら","天空","sky","ソファ","沙發","sofa"]
+        ["そ","ソ","so",1,2,"一筆完成：上面兩個小折，再一路彎到底（手寫也常分成兩筆）","One stroke: two small zig-zags on top, then one long curve (often handwritten as two strokes).","先寫左上的短點，再寫彎鉤","Short stroke at the upper left, then the curving hook.","そら","天空","sky","ソファ","沙發","sofa"]
       ],
       [
         ["た","タ","ta",4,3,"先寫橫畫，再寫左邊的撇，右邊再補兩小畫","Cross bar, left sweep, then two small strokes on the right.","先寫斜撇，再寫彎角，最後補裡面的短橫","Diagonal sweep, corner stroke, then the short bar inside.","たまご","蛋","egg","タクシー","計程車","taxi"],
         ["ち","チ","chi",2,3,"先寫上方的短撇，再寫大彎鉤","Short top stroke, then the big curving hook.","先寫斜撇，再寫橫畫，最後直彎到底","Diagonal, cross bar, then the long curve to the bottom.","ちず","地圖","map","チーズ","起司","cheese"],
-        ["つ","ツ","tsu",1,3,"一筆彎下來，像一片小葉子","One stroke curving down like a little leaf.","三小點由左到右寫，最後寫長彎畫","Three short strokes left to right, then the long curve.","つき","月亮","moon","ツナ","鮪魚","tuna"],
+        ["つ","ツ","tsu",1,3,"一筆彎下來，像一片小葉子","One stroke curving down like a little leaf.","兩小點由左到右寫，最後從右上往左下寫長彎畫","Two short strokes left to right, then the long curve from the upper right down to the left.","つき","月亮","moon","ツナ","鮪魚","tuna"],
         ["て","テ","te",1,3,"一筆完成：先橫，後彎下來","One stroke: across, then curving down.","兩條橫畫先寫，最後寫彎鉤","Two horizontal bars, then the curving hook.","てがみ","信","letter","テレビ","電視","TV"],
         ["と","ト","to",2,2,"先寫短直，再寫彎鉤繞回來","Short vertical, then a stroke that hooks back around.","先寫直畫，再補右邊的短橫","Vertical first, then the short bar on the right.","とり","鳥","bird","トマト","番茄","tomato"]
       ],
       [
-        ["な","ナ","na",4,2,"先寫橫畫，再寫左邊的撇，中間繞小圈，最後寫右邊的彎","Cross bar, left sweep, small loop, then the curve on the right.","先寫橫畫，再寫直鉤穿過去","Cross bar, then the vertical hook crossing through.","なつ","夏天","summer","ナイフ","刀子","knife"],
+        ["な","ナ","na",4,2,"先寫短橫，再寫左邊的撇，接著補右上的短點，最後寫往下繞一圈的直畫","Short cross bar, left sweep, the short stroke at the upper right, then the vertical that loops at the bottom.","先寫橫畫，再寫直鉤穿過去","Cross bar, then the vertical hook crossing through.","なつ","夏天","summer","ナイフ","刀子","knife"],
         ["に","ニ","ni",3,2,"先寫左邊的直畫，再補右上、右下兩條短橫","Left vertical first, then the two short bars on the right.","上短下長，兩條橫畫","Two horizontal bars, short on top, long below.","にく","肉","meat","ニンジン","紅蘿蔔","carrot"],
-        ["ぬ","ヌ","nu",2,2,"先寫彎撇，再一筆繞圈收尾","A curving sweep, then one stroke that loops around.","先寫斜撇，再寫帶點的彎畫","Diagonal sweep, then a curving stroke with a flick.","ぬの","布","cloth","ヌードル","麵條","noodles"],
+        ["ぬ","ヌ","nu",2,2,"先寫彎撇，再一筆繞圈收尾","A curving sweep, then one stroke that loops around.","先寫橫折撇（像フ），再寫交叉的短斜畫","The bar that turns and sweeps down (like フ), then the short crossing stroke.","ぬの","布","cloth","ヌードル","麵條","noodles"],
         ["ね","ネ","ne",2,4,"先寫直畫，再一筆彎折繞回來","Vertical first, then one stroke that zig-zags and loops back.","先點上方短點，再寫橫撇，最後直畫和右撇","Dot on top, cross-and-sweep, then the vertical and right flick.","ねこ","貓","cat","ネコ","貓","cat"],
         ["の","ノ","no",1,1,"一筆繞一個圈，像小蝸牛的殼","One stroke spiralling around like a little snail shell.","一筆斜撇往下","One diagonal stroke sweeping down.","のり","海苔","seaweed","ノート","筆記本","notebook"]
       ],
       [
-        ["は","ハ","ha",3,2,"先寫左邊的直畫，再寫橫帶彎，最後補右下的小撇","Left vertical, cross-and-curve, then a small flick at the lower right.","左短右長，兩筆往外撇開","Two strokes spreading apart, like a little roof.","はな","花","flower","ハサミ","剪刀","scissors"],
-        ["ひ","ヒ","hi",1,2,"一筆彎鉤，像一座小山丘","One stroke curving like a little hill.","先寫橫帶彎，再寫下面的彎鉤","Cross-and-bend first, then the hook below.","ひる","中午","noon","ヒコウキ","飛機","airplane"],
-        ["ふ","フ","fu",4,1,"先點頭，再寫左撇、右撇，最後寫下面的彎","Dot on top, left and right sweeps, then the bottom curve.","一筆彎角完成","One corner stroke.","ふね","船","boat","フルーツ","水果","fruit"],
+        ["は","ハ","ha",3,2,"先寫左邊的直畫，再寫短橫，最後寫右邊的直畫，下端繞一圈","Left vertical, short cross bar, then the right vertical that loops at the bottom.","左短右長，兩筆往外撇開","Two strokes spreading apart, like a little roof.","はな","花","flower","ハサミ","剪刀","scissors"],
+        ["ひ","ヒ","hi",1,2,"一筆彎鉤，像一座小山丘","One stroke curving like a little hill.","先寫右邊的短橫，再寫直畫往下、折向右","The short bar first, then the vertical that turns right at the bottom.","ひる","中午","noon","ヒーター","暖氣機","heater"],
+        ["ふ","フ","fu",4,1,"先寫上方的點，再寫中間的彎畫，最後補左邊和右邊的點","Dot on top, the curving stroke in the middle, then the left dot and the right dot.","一筆彎角完成","One corner stroke.","ふね","船","boat","フルーツ","水果","fruit"],
         ["へ","ヘ","he",1,1,"一筆斜上去再彎下來，像山頂","One stroke up and over like a mountain peak.","一筆斜上再彎下，跟平假名 へ 同形","One stroke up and over — same shape as hiragana へ.","へや","房間","room","ヘリコプター","直升機","helicopter"],
-        ["ほ","ホ","ho",4,4,"先寫橫畫，再寫左邊的直畫，右邊再補橫畫和彎鉤","Cross bar, left vertical, then the right side with its own bar and hook.","先寫橫畫，再寫直畫，最後補左右兩小撇","Cross bar, vertical, then the two small strokes on each side.","ほし","星星","star","ホテル","飯店","hotel"]
+        ["ほ","ホ","ho",4,4,"先寫左邊的直畫，再寫上下兩條橫畫，最後寫往下繞一圈的直畫","Left vertical, the two cross bars (top, then middle), then the vertical that loops at the bottom.","先寫橫畫，再寫直畫，最後補左右兩小撇","Cross bar, vertical, then the two small strokes on each side.","ほし","星星","star","ホテル","飯店","hotel"]
       ],
       [
         ["ま","マ","ma",3,2,"兩條橫畫先寫，最後一筆繞圈收尾","Two horizontal bars, then a final stroke that loops.","先寫彎角，再補裡面的短橫","Corner stroke first, then the short bar inside.","まち","城鎮","town","マンゴー","芒果","mango"],
@@ -1168,17 +1194,17 @@
         ["も","モ","mo",3,3,"先寫彎鉤，再補兩條橫畫","The curving hook first, then two horizontal bars.","兩條橫畫先寫，最後寫直鉤","Two horizontal bars, then the vertical hook.","もも","桃子","peach","モモ","桃子","peach"]
       ],
       [
-        ["や","ヤ","ya",3,2,"先寫橫帶撇，再寫直鉤，最後補左邊的小撇","Cross-and-sweep, vertical hook, then a small stroke on the left.","先寫橫帶撇，再寫直鉤","Cross-and-sweep, then the vertical hook.","やま","山","mountain","ヤギ","山羊","goat"],
+        ["や","ヤ","ya",3,2,"先寫往右上再彎下來的大彎畫，再補短點，最後寫長斜畫","The big curving stroke first, then the short dot, then the long diagonal.","先寫橫帶撇，再寫直鉤","Cross-and-sweep, then the vertical hook.","やま","山","mountain","ヤギ","山羊","goat"],
         null,
-        ["ゆ","ユ","yu",2,2,"先寫彎鉤繞圈，再補中間的直畫","A looping curve first, then the vertical through the middle.","先寫彎角，再寫下橫","Corner stroke, then the bottom bar.","ゆき","雪","snow","ユキ","雪","snow"],
+        ["ゆ","ユ","yu",2,2,"先寫彎鉤繞圈，再補中間的直畫","A looping curve first, then the vertical through the middle.","先寫彎角，再寫下橫","Corner stroke, then the bottom bar.","ゆき","雪","snow","ユニフォーム","制服、球衣","uniform"],
         null,
         ["よ","ヨ","yo",2,3,"先寫短橫，再寫彎鉤繞回來","Short top bar, then a stroke that hooks around.","先寫彎角，再補兩條短橫","Corner stroke, then two short bars.","よる","夜晚","night","ヨーグルト","優格","yogurt"]
       ],
       [
         ["ら","ラ","ra",2,2,"先寫上方短直，再寫彎鉤","Short stroke on top, then the curving hook.","先寫上方短橫，再寫彎鉤","Short top stroke, then the curving hook.","らくだ","駱駝","camel","ライオン","獅子","lion"],
         ["り","リ","ri",2,2,"左短右長，兩筆都往下彎","Two downward strokes, short on the left, long on the right.","左短右長，兩條直畫","Two verticals, short on the left, long on the right.","りんご","蘋果","apple","リンゴ","蘋果","apple"],
-        ["る","ル","ru",2,2,"先寫彎折，最後一筆繞一個小圈","A zig-zag stroke, then a stroke ending in a small loop.","左短右長，兩筆往外撇開","Two strokes spreading outward at the bottom.","るす","不在家","being away from home","ルール","規則","rule"],
-        ["れ","レ","re",2,1,"先寫直畫，再一筆彎折收尾","Vertical first, then one zig-zag finishing stroke.","一筆彎鉤往下","One stroke bending down.","れもん","檸檬","lemon","レモン","檸檬","lemon"],
+        ["る","ル","ru",1,2,"一筆完成：橫折往下，再繞回來收一個小圈","One stroke: across, zig-zag down, then a small loop at the end.","左短右長，兩筆往外撇開","Two strokes spreading outward at the bottom.","るす","不在家","being away from home","ルール","規則","rule"],
+        ["れ","レ","re",2,1,"先寫直畫，再一筆彎折收尾","Vertical first, then one zig-zag finishing stroke.","一筆彎鉤往下","One stroke bending down.","れいぞうこ","冰箱","refrigerator","レモン","檸檬","lemon"],
         ["ろ","ロ","ro",1,3,"一筆彎折到底，不繞圈——這就是跟 る 的差別","One zig-zag stroke with no loop — that's the difference from る.","由上往下寫成一個口：橫、直、橫","Draw a box in three strokes: top, side, bottom.","ろうそく","蠟燭","candle","ロボット","機器人","robot"]
       ],
       [
@@ -1203,14 +1229,14 @@
       [
         ["ざ","ザ","za","さ","d","ざっし","雜誌","magazine","ピザ","披薩","pizza"],
         ["じ","ジ","ji","し","d","じかん","時間","time","ラジオ","收音機","radio"],
-        ["ず","ズ","zu","す","d","ずぼん","褲子","trousers","ズボン","褲子","trousers"],
+        ["ず","ズ","zu","す","d","みず","水","water","ズボン","褲子","trousers"],
         ["ぜ","ゼ","ze","せ","d","ぜんぶ","全部","all","ゼリー","果凍","jelly"],
         ["ぞ","ゾ","zo","そ","d","ぞう","大象","elephant","ゾンビ","殭屍","zombie"]
       ],
       [
         ["だ","ダ","da","た","d","だれ","誰","who","ダンス","跳舞","dance"],
-        ["ぢ","ヂ","di","ち","d","はなぢ","鼻血","nosebleed","ヂ","（現代多寫 ジ）","(today usually written ジ)"],
-        ["づ","ヅ","du","つ","d","つづく","繼續","to continue","ヅ","（現代多寫 ズ）","(today usually written ズ)"],
+        ["ぢ","ヂ","ji (di)","ち","d","はなぢ","鼻血","nosebleed","ヂ","（現代多寫 ジ）","(today usually written ジ)"],
+        ["づ","ヅ","zu (du)","つ","d","つづく","繼續","to continue","ヅ","（現代多寫 ズ）","(today usually written ズ)"],
         ["で","デ","de","て","d","でんしゃ","電車","train","デパート","百貨公司","department store"],
         ["ど","ド","do","と","d","どうぶつ","動物","animal","ドア","門","door"]
       ],
@@ -1222,7 +1248,7 @@
         ["ぼ","ボ","bo","ほ","d","ぼうし","帽子","hat","ボール","球","ball"]
       ],
       [
-        ["ぱ","パ","pa","は","h","ぱん","麵包","bread","パン","麵包","bread"],
+        ["ぱ","パ","pa","は","h","いっぱい","滿滿的、很多","full; a lot","パン","麵包","bread"],
         ["ぴ","ピ","pi","ひ","h","えんぴつ","鉛筆","pencil","ピアノ","鋼琴","piano"],
         ["ぷ","プ","pu","ふ","h","てんぷら","天婦羅","tempura","プール","游泳池","swimming pool"],
         ["ぺ","ペ","pe","へ","h","ぺらぺら","（外語）說得流利","fluent (in a language)","ペン","筆","pen"],
@@ -1252,23 +1278,23 @@
         ["にょ","ニョ","nyo","にょきにょき","（植物）一根根冒出來","sprouting up","ニョッキ","義大利麵疙瘩","gnocchi"]
       ],
       [
-        ["ひゃ","ヒャ","hya","ひゃく","一百","one hundred","ヒャク","一百","one hundred"],
+        ["ひゃ","ヒャ","hya","ひゃく","一百","one hundred","ヒャ","（片假名的「ヒャ」很少見，主要出現在外來語或人名）","(rare in katakana; mostly found in loanwords or names)"],
         ["ひゅ","ヒュ","hyu","ひゅーひゅー","（風）呼呼地吹","wind blowing","ヒューズ","保險絲","fuse"],
         ["ひょ","ヒョ","hyo","ひょう","豹；冰雹","leopard; hail","ヒョウ","豹","leopard"]
       ],
       [
         ["みゃ","ミャ","mya","みゃく","脈搏","pulse","ミャンマー","緬甸","Myanmar"],
-        ["みゅ","ミュ","myu","みゅーじっく","音樂","music","ミュージック","音樂","music"],
+        ["みゅ","ミュ","myu","みゅ","（平假名很少用到，多出現在外來語，寫成片假名：ミュージック）","(rare in hiragana; it mostly appears in loanwords written in katakana, e.g. ミュージック)","ミュージック","音樂","music"],
         ["みょ","ミョ","myo","みょうじ","姓氏","surname","ミョウガ","茗荷（日本薑）","Japanese ginger"]
       ],
       [
         ["りゃ","リャ","rya","りゃく","省略、簡略","abbreviation","リャマ","羊駝","llama"],
         ["りゅ","リュ","ryu","りゅう","龍","dragon","リュック","背包","backpack"],
-        ["りょ","リョ","ryo","りょこう","旅行","travel","リョカン","旅館","Japanese inn"]
+        ["りょ","リョ","ryo","りょこう","旅行","travel","リョ","（片假名的「リョ」很少見，主要出現在外來語或人名）","(rare in katakana; mostly found in loanwords or names)"]
       ],
       [
         ["ぎゃ","ギャ","gya","ぎゃく","相反、逆向","reverse; opposite","ギャラリー","藝廊","gallery"],
-        ["ぎゅ","ギュ","gyu","ぎゅうにゅう","牛奶","milk","ギュウニュウ","牛奶","milk"],
+        ["ぎゅ","ギュ","gyu","ぎゅうにゅう","牛奶","milk","ギュ","（片假名的「ギュ」很少見，主要出現在外來語或人名）","(rare in katakana; mostly found in loanwords or names)"],
         ["ぎょ","ギョ","gyo","きんぎょ","金魚","goldfish","ギョーザ","餃子","gyoza"]
       ],
       [
@@ -1277,17 +1303,17 @@
         ["じょ","ジョ","jo","じょし","女生","girl","ジョギング","慢跑","jogging"]
       ],
       [
-        ["ぢゃ","ヂャ","dya","ぢゃ","（現代多寫「じゃ」）","(today usually written じゃ)","ヂャ","（現代多寫 ジャ）","(today usually written ジャ)"],
-        ["ぢゅ","ヂュ","dyu","ぢゅ","（現代多寫「じゅ」）","(today usually written じゅ)","ヂュ","（現代多寫 ジュ）","(today usually written ジュ)"],
-        ["ぢょ","ヂョ","dyo","ぢょ","（現代多寫「じょ」）","(today usually written じょ)","ヂョ","（現代多寫 ジョ）","(today usually written ジョ)"]
+        ["ぢゃ","ヂャ","ja (dya)","ぢゃ","（現代多寫「じゃ」）","(today usually written じゃ)","ヂャ","（現代多寫 ジャ）","(today usually written ジャ)"],
+        ["ぢゅ","ヂュ","ju (dyu)","ぢゅ","（現代多寫「じゅ」）","(today usually written じゅ)","ヂュ","（現代多寫 ジュ）","(today usually written ジュ)"],
+        ["ぢょ","ヂョ","jo (dyo)","ぢょ","（現代多寫「じょ」）","(today usually written じょ)","ヂョ","（現代多寫 ジョ）","(today usually written ジョ)"]
       ],
       [
-        ["びゃ","ビャ","bya","さんびゃく","三百","three hundred","サンビャク","三百","three hundred"],
+        ["びゃ","ビャ","bya","さんびゃく","三百","three hundred","ビャ","（片假名的「ビャ」很少見，主要出現在外來語或人名）","(rare in katakana; mostly found in loanwords or names)"],
         ["びゅ","ビュ","byu","びゅーびゅー","（風）呼呼作響","wind howling","ビュッフェ","自助餐","buffet"],
-        ["びょ","ビョ","byo","びょういん","醫院","hospital","ビョウイン","醫院","hospital"]
+        ["びょ","ビョ","byo","びょういん","醫院","hospital","ビョ","（片假名的「ビョ」很少見，主要出現在外來語或人名）","(rare in katakana; mostly found in loanwords or names)"]
       ],
       [
-        ["ぴゃ","ピャ","pya","ろっぴゃく","六百","six hundred","ロッピャク","六百","six hundred"],
+        ["ぴゃ","ピャ","pya","ろっぴゃく","六百","six hundred","ピャ","（片假名的「ピャ」很少見，主要出現在外來語或人名）","(rare in katakana; mostly found in loanwords or names)"],
         ["ぴゅ","ピュ","pyu","ぴゅーぴゅー","（風）咻咻地吹","wind whistling","コンピュータ","電腦","computer"],
         ["ぴょ","ピョ","pyo","ぴょんぴょん","蹦蹦跳跳","hopping around","ピョンピョン","蹦蹦跳跳","hopping around"]
       ]
@@ -1295,13 +1321,13 @@
     var KANA_QUIZ_H = [
       {k:"あ",o:["a","i","o"],a:0},{k:"き",o:["sa","ki","chi"],a:1},{k:"す",o:["su","mu","nu"],a:0},
       {k:"て",o:["ta","chi","te"],a:2},{k:"の",o:["me","no","nu"],a:1},{k:"み",o:["mi","sa","ni"],a:0},
-      {k:"ゆ",o:["yo","ya","yu"],a:2},{k:"れ",o:["re","ne","wa"],a:0},{k:"を",o:["wa","wo","o"],a:1},
+      {k:"ゆ",o:["yo","ya","yu"],a:2},{k:"れ",o:["re","ne","wa"],a:0},{k:"を",o:["wa","wo","nu"],a:1},
       {k:"ん",o:["na","n","mu"],a:1}
     ];
     var KANA_QUIZ_K = [
       {k:"ア",o:["a","ta","sa"],a:0},{k:"キ",o:["sa","ki","hi"],a:1},{k:"ス",o:["nu","su","mu"],a:1},
       {k:"テ",o:["te","chi","de"],a:0},{k:"ノ",o:["me","no","nu"],a:1},{k:"ミ",o:["sa","mi","ni"],a:1},
-      {k:"ユ",o:["yu","yo","ko"],a:0},{k:"レ",o:["ne","wa","re"],a:2},{k:"ヲ",o:["wa","o","wo"],a:2},
+      {k:"ユ",o:["yu","yo","ko"],a:0},{k:"レ",o:["ne","wa","re"],a:2},{k:"ヲ",o:["wa","no","wo"],a:2},
       {k:"ン",o:["n","so","shi"],a:0}
     ];
     var KANA_FLAT_S = [], KANA_FLAT_D = [], KANA_FLAT_Y = [], KANA_BASE = {};
@@ -1399,7 +1425,6 @@
       "か":{w:"かぜ",r:"kaze",zh:"風",en:"wind",i:"wind"},
       "き":{w:"き",r:"ki",zh:"樹木",en:"tree",i:"tree"},
       "く":{w:"くも",r:"kumo",zh:"雲",en:"cloud",i:"cloud"},
-      "け":{w:"けーき",r:"keeki",zh:"蛋糕",en:"cake",i:"cake"},
       "こ":{w:"こい",r:"koi",zh:"鯉魚",en:"koi carp",i:"fish"},
       "さ":{w:"さくら",r:"sakura",zh:"櫻花",en:"cherry blossom",i:"sakura"},
       "し":{w:"しか",r:"shika",zh:"鹿",en:"deer",i:"deer"},
@@ -1432,7 +1457,6 @@
       "ら":{w:"らくだ",r:"rakuda",zh:"駱駝",en:"camel",i:"camel"},
       "り":{w:"りんご",r:"ringo",zh:"蘋果",en:"apple",i:"apple"},
       "る":{w:"るり",r:"ruri",zh:"琉璃（藍色寶石）",en:"lapis lazuli",i:"gem"},
-      "れ":{w:"れもん",r:"remon",zh:"檸檬",en:"lemon",i:"lemon"},
       "ろ":{w:"ろうそく",r:"rousoku",zh:"蠟燭",en:"candle",i:"candle"},
       "わ":{w:"わに",r:"wani",zh:"鱷魚",en:"crocodile",i:"croc"},
       "を":{w:"ほんをよみます",r:"hon wo yomimasu",zh:"讀書（を 是標示受詞的助詞）",en:"to read a book (を marks the object)",i:"book"},
@@ -1450,7 +1474,6 @@
       "ケ":{w:"ケーキ",r:"keeki",zh:"蛋糕",en:"cake",i:"cake"},
       "コ":{w:"コーヒー",r:"koohii",zh:"咖啡",en:"coffee",i:"coffee"},
       "サ":{w:"サッカー",r:"sakkaa",zh:"足球",en:"soccer",i:"soccer"},
-      "シ":{w:"シャツ",r:"shatsu",zh:"襯衫",en:"shirt",i:"shirt"},
       "ス":{w:"スプーン",r:"supuun",zh:"湯匙",en:"spoon",i:"spoon"},
       "セ":{w:"セーター",r:"seetaa",zh:"毛衣",en:"sweater",i:"sweater"},
       "ソ":{w:"ソファ",r:"sofa",zh:"沙發",en:"sofa",i:"sofa"},
@@ -1465,7 +1488,6 @@
       "ネ":{w:"ネコ",r:"neko",zh:"貓",en:"cat",i:"cat"},
       "ノ":{w:"ノート",r:"nooto",zh:"筆記本",en:"notebook",i:"notebook"},
       "ハ":{w:"ハサミ",r:"hasami",zh:"剪刀",en:"scissors",i:"scissors"},
-      "ヒ":{w:"ヒコウキ",r:"hikouki",zh:"飛機",en:"airplane",i:"airplane"},
       "フ":{w:"フルーツ",r:"furuutsu",zh:"水果",en:"fruit",i:"fruit"},
       "ヘ":{w:"ヘリコプター",r:"herikoputaa",zh:"直升機",en:"helicopter",i:"heli"},
       "ホ":{w:"ホテル",r:"hoteru",zh:"飯店",en:"hotel",i:"hotel"},
@@ -1475,7 +1497,6 @@
       "メ":{w:"メロン",r:"meron",zh:"哈密瓜",en:"melon",i:"melon"},
       "モ":{w:"モモ",r:"momo",zh:"桃子",en:"peach",i:"peach"},
       "ヤ":{w:"ヤギ",r:"yagi",zh:"山羊",en:"goat",i:"goat"},
-      "ユ":{w:"ユキ",r:"yuki",zh:"雪",en:"snow",i:"snow"},
       "ヨ":{w:"ヨーグルト",r:"yooguruto",zh:"優格",en:"yogurt",i:"yogurt"},
       "ラ":{w:"ライオン",r:"raion",zh:"獅子",en:"lion",i:"lion"},
       "リ":{w:"リンゴ",r:"ringo",zh:"蘋果",en:"apple",i:"apple"},
@@ -1490,7 +1511,7 @@
     <script>
     /* ============ Gojuon view logic ============ */
     var kanaScript = "h";
-    var kanaAns = load("drw_kana", {h:{}, k:{}}); if(!kanaAns.h || !kanaAns.k) kanaAns = {h:{}, k:{}};
+    var kanaAns = load("drw_kana", {h:{}, k:{}}); if(!kanaAns.h || typeof kanaAns.h !== "object" || !kanaAns.k || typeof kanaAns.k !== "object") kanaAns = {h:{}, k:{}};
     var selKanaKey = "";
 
     function openGojuon(){ closeSheet(); renderGojuon(); showView("gojuon"); }
@@ -1547,7 +1568,7 @@
         h += "</div>";
         if(chosen !== undefined){
           var ok = chosen === q.a;
-          h += '<div class="why show' + (ok ? "" : " no") + '"><b>' + esc(ok ? s.qRight : s.qWrong) + "</b> " + esc(s.kanaWhy.replace("{k}", q.k).replace("{r}", q.o[q.a])) + "</div>";
+          h += '<div class="why show' + (ok ? "" : " no") + '"><b>' + esc(ok ? s.qRight : s.qWrong) + "</b> " + esc(s.kanaWhy.replace("{k}", q.k).replace("{r}", q.o[q.a]) + (q.k === "を" || q.k === "ヲ" ? " " + s.kanaWo : "")) + "</div>";
         } else h += '<div class="why"></div>';
         h += "</div>";
       });
@@ -1579,7 +1600,7 @@
     function updateGjDone(){
       var el = document.getElementById("gj-done"); if(!el) return;
       el.innerHTML = gjDoneHtml();
-      document.getElementById("gj-first").addEventListener("click", function(){ openArticle("conbini"); });
+      document.getElementById("gj-first").addEventListener("click", function(){ openArticle(ARTICLES[0].id); });
       var rb = document.getElementById("gj-retry");
       if(rb) rb.addEventListener("click", function(){
         kanaAns = {h:{}, k:{}}; save("drw_kana", kanaAns); renderGojuon();
@@ -1600,7 +1621,7 @@
       });
       var why = box.querySelector(".why"), ok = oi === q.a;
       why.className = "why show" + (ok ? "" : " no");
-      why.innerHTML = "<b>" + esc(ok ? s.qRight : s.qWrong) + "</b> " + esc(s.kanaWhy.replace("{k}", q.k).replace("{r}", q.o[q.a]));
+      why.innerHTML = "<b>" + esc(ok ? s.qRight : s.qWrong) + "</b> " + esc(s.kanaWhy.replace("{k}", q.k).replace("{r}", q.o[q.a]) + (q.k === "を" || q.k === "ヲ" ? " " + s.kanaWo : ""));
       updateKanaScore(g); updateGjDone();
       if(why) try{ why.setAttribute("tabindex", "-1"); why.focus({preventScroll:true}); }catch(e){}
     }
@@ -1687,12 +1708,14 @@
       var h = cardHtml + '<span class="kind v">' + esc(s.kindKana) + '</span><h3 class="jp" id="sheet-title" style="font-size:2.6rem">' + esc(ch) + "</h3>";
       h += listenBtn(ch);
       h += '<div class="pos">' + esc(kanaScript === "h" ? s.gjKata : s.gjHira) + esc(s.colon) + '<span class="jp">' + esc(counter) + "</span></div>";
-      h += '<div class="lbl">' + esc(s.lblRomaji) + '</div><div class="mean" style="margin-top:0;font-size:1.5rem">' + esc(romaji) + "</div>";
+      h += '<div class="lbl">' + esc(s.lblRomaji) + '</div><div class="mean" style="margin-top:0;font-size:1.5rem">' + esc(romaji) + "</div>" + (ch === "を" || ch === "ヲ" ? '<div class="exzh">' + esc(s.kanaWo) + "</div>" : "");
       h += '<div class="lbl">' + esc(s.lblStrokes) + '</div><div class="body">' + esc(strokesTxt) + "</div>";
-      if(!hasCard) h += '<div class="lbl">' + esc(s.lblExample) + '</div><div class="ex jp">' + esc(exW) + '</div><div class="exzh">' + esc(exM) + "</div>";
-      else { var cw = kanaScript === "h" ? KANA_CARD_H[e[0]] : KANA_CARD_K[e[1]]; h += listenBtn(cw.w).replace('class="listen"', 'class="listen" style="margin-top:14px"').replace(esc(s.listen), esc(s.listen) + " · " + esc(cw.w)); }
+      // the card at the top already shows the example word; only add a "listen" button for it
+      var sayW = hasCard ? (kanaScript === "h" ? KANA_CARD_H[e[0]] : KANA_CARD_K[e[1]]).w : exW;
+      if(sayW && sayW !== ch) h += listenBtn(sayW).replace('class="listen"', 'class="listen" style="margin-top:14px"').replace(esc(s.listen), esc(s.listen) + " · " + esc(sayW));
       openSheet(h);
     }
+    setFuri(furiOn); renderTabs(); syncTopH();
     route();
     </script>
   </body>
